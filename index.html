@@ -11,10 +11,10 @@
       background-color: #0f1f1c;
       color: #d4af37;
       overflow-x: hidden;
+      text-align: center;
     }
 
     header {
-      text-align: center;
       padding: 2rem 1rem;
     }
 
@@ -43,40 +43,7 @@
       border-radius: 8px;
     }
 
-    .intro {
-      text-align: center;
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem 0;
-      flex-wrap: wrap;
-    }
-
-    .buttons button {
-      background-color: transparent;
-      border: 2px solid #d4af37;
-      color: #d4af37;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .buttons button:hover {
-      background-color: #d4af37;
-      color: #0f1f1c;
-    }
-
     .warning {
-      text-align: center;
       margin: 2rem 0;
       cursor: pointer;
     }
@@ -96,7 +63,6 @@
     }
 
     .enter {
-      text-align: center;
       margin: 3rem 0;
     }
 
@@ -115,7 +81,6 @@
       transform: scale(1.05);
     }
 
-    /* Pop-up styles */
     .popup {
       display: none;
       position: fixed;
@@ -162,34 +127,18 @@
         flex-direction: column;
         align-items: center;
       }
-
-      .buttons {
-        flex-direction: column;
-        align-items: center;
-      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="images/logo.png" alt="Logo de l'entreprise" />
-    <!-- Nom supprimé -->
+    <img src="images/logo.png" alt="Logo" />
   </header>
 
   <div class="photos">
-    <img src="images/interieur.jpg" alt="Photo intérieure" />
     <img src="images/exterieur.jpg" alt="Photo extérieure" />
-  </div>
-
-  <div class="intro">
-    <p>Bienvenue dans notre établissement — un lieu unique où se rencontrent convivialité, savoir-faire et ambiance chaleureuse.</p>
-  </div>
-
-  <div class="buttons">
-    <button onclick="location.href='mailto:contact@entreprise.fr'">Nous écrire</button>
-    <button onclick="location.href='tel:+33123456789'">Nous appeler</button>
-    <button onclick="window.open('https://maps.google.com')">Nous visiter</button>
+    <img src="images/interdit.png" alt="Logo interdit" />
   </div>
 
   <div class="warning" onclick="document.getElementById('popup-reglement').style.display='flex'">
