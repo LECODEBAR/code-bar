@@ -1,46 +1,31 @@
-/* Fond général */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
   color: white;
+  overflow: hidden;
+}
+
+.wrapper {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-content {
   text-align: center;
+  z-index: 2;
 }
 
-/* Conteneur principal */
-.container {
-  padding: 40px 20px;
-}
-
-/* Logo centré avec effet néon */
 .logo {
   width: 250px;
-  margin: 40px auto;
-  display: block;
   filter: drop-shadow(0 0 10px #ff0033);
+  margin-bottom: 20px;
 }
 
-/* Photos ext/int avec glow et inclinaison */
-.photos {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.photo {
-  width: 220px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #ff0033;
-  transform: rotate(-2deg);
-  transition: transform 0.3s ease;
-}
-
-.photos img:last-child {
-  transform: rotate(2deg);
-}
-
-/* Bouton principal “ENTREZ” */
 #enterBtn {
   background-color: #ff0033;
   color: white;
@@ -50,17 +35,40 @@ body {
   box-shadow: 0 0 20px #ff0033;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 #enterBtn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px #ff0033;
 }
 
-/* Boutons de contact */
-.contact {
-  margin-top: 30px;
+.photos {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5%;
+  z-index: 1;
+}
+
+.photo {
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ff0033;
+  transform: rotate(-5deg);
+  transition: transform 0.3s ease;
+}
+
+.photo.right {
+  transform: rotate(5deg);
+}
+
+footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
 }
 
 .contact button {
@@ -80,15 +88,15 @@ body {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Zone interdit aux mineurs */
 .interdit {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 40px;
+  margin-top: 20px;
   font-size: 14px;
   color: #ff0033;
+  cursor: pointer;
 }
 
 .interdit img {
@@ -96,7 +104,6 @@ body {
   filter: drop-shadow(0 0 5px #ff0033);
 }
 
-/* Pop-ups stylisés */
 .popup {
   position: fixed;
   top: 50%;
@@ -122,7 +129,16 @@ body {
   filter: drop-shadow(0 0 10px #ff0033);
 }
 
-/* Masquer les pop-ups par défaut */
+.popup button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ff0033;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 .hidden {
   display: none;
 }
