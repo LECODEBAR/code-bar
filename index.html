@@ -3,50 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bienvenue sur Code Bar</title>
+  <title>Bienvenue - Code Bar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
-      text-align: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    .container {
-      max-width: 600px;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
+
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 4em;
+      margin-top: 40px;
+      animation: fadeIn 2s ease-in-out;
     }
-    p {
-      font-size: 1.2em;
+
+    .logo {
+      margin: 20px 0;
+      width: 150px;
+      height: auto;
+      animation: zoomIn 1.5s ease-in-out;
     }
-    a {
-      color: #ffd700;
-      text-decoration: none;
+
+    .enter-button {
+      background: linear-gradient(45deg, #ffcc00, #ff6600);
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.5em;
+      color: #000;
+      border-radius: 50px;
+      cursor: pointer;
+      margin: 20px 0;
+      transition: transform 0.3s ease;
+    }
+
+    .enter-button:hover {
+      transform: scale(1.1);
+    }
+
+    .warning {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+
+    .warning img {
+      width: 40px;
+      height: auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 40px 0;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      transition: transform 0.5s ease, filter 0.5s ease;
+      filter: brightness(80%);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      filter: brightness(100%);
+    }
+
+    /* Pop-ups */
+    .popup, .law-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      z-index: 1000;
+      max-width: 500px;
+      box-shadow: 0 0 20px #ffcc00;
+    }
+
+    .popup button, .law-popup button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ffcc00;
+      border: none;
+      cursor: pointer;
       font-weight: bold;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Bienvenue sur Code Bar 🍹</h1>
-    <p>Ce site est en cours de création. Revenez bientôt pour découvrir nos projets et tutoriels passionnants !</p>
-    <p>Créé par <strong>Charlie</strong></p>
-    <p><a href="https://lecodebar.github.io/code-bar/">Voir le dépôt GitHub</a></p>
+
+  <h1>Bienvenue</h1>
+  <img src="images/logo.png" alt="Logo de l'établissement" class="logo">
+
+  <button class="enter-button" onclick="showPopup()">ENTREZ</button>
+
+  <div class="warning" onclick="showLawPopup()">
+    <img src="images/interdit.png" alt="Interdit aux mineurs">
+    <span>Site interdit aux mineurs</span>
   </div>
+
+  <div class="gallery">
+    <img src="images/exterieur.jpg" alt="Photo extérieure">
+    <img src="images/interieur.jpg" alt="Photo intérieure">
+  </div>
+
+  <!-- Pop-up Maintenance -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <p>Le site est actuellement en maintenance. Revenez bientôt pour découvrir l’univers de Code Bar !</p>
+    <button onclick="closePopup()">Fermer</button>
+  </div>
+
+  <!-- Pop-up Loi -->
+  <div class="law-popup" id="lawPopup">
+    <p>Conformément à l’article L.3342-1 du Code de la santé publique, l’accès à ce site est strictement interdit aux mineurs. Toute tentative de contournement pourra faire l’objet de poursuites.</p>
+    <button onclick="closeLawPopup()">Fermer</button>
+  </div>
+
+  <script>
+    function showPopup() {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('popup').style.display = 'none';
+      // Redirection vers la page d'accueil (à créer)
+      // window.location.href = "accueil.html";
+    }
+
+    function showLawPopup() {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('lawPopup').style.display = 'block';
+    }
+
+    function closeLawPopup() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('lawPopup').style.display = 'none';
+    }
+  </script>
+
 </body>
 </html>
