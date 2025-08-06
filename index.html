@@ -1,44 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Code Bar</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <div class="container">
+    <img src="images/Logo.png" alt="Logo Code Bar" class="logo" />
+
     <div class="photos">
-      <img src="images/Exterieur.jpg" alt="Extérieur">
-      <img src="images/Interieur.jpg" alt="Intérieur">
+      <img src="images/Exterieur.jpg" alt="Extérieur du bar" class="photo" />
+      <img src="images/Interieur.jpg" alt="Intérieur du bar" class="photo" />
     </div>
 
-    <img src="images/Logo.png" alt="Logo" class="logo">
+    <button id="enterBtn">ENTREZ</button>
 
-    <button class="btn main-btn" onclick="showPopup('maintenance')">ENTREZ</button>
-
-    <div class="actions">
-      <button onclick="window.location.href='tel:0965240755'">📞 Appeler</button>
-      <button onclick="window.location.href='mailto:contact@code-bar.fr'">📧 Écrire</button>
-      <button onclick="openMaps()">📍 Itinéraire</button>
+    <div class="contact">
+      <button onclick="window.location.href='tel:+33000000000'">📞 Appeler</button>
+      <button onclick="window.location.href='mailto:contact@codebar.fr'">✉️ Écrire</button>
+      <button onclick="window.open('https://maps.google.com?q=Code+Bar')">📍 Itinéraire</button>
     </div>
 
-    <div class="interdit" onclick="showPopup('interdit')">
-      <img src="images/Interdit.png" alt="Interdit">
+    <div class="interdit">
+      <img src="images/Interdit.png" alt="Interdit aux mineurs" />
       <p>Accès interdit aux mineurs</p>
     </div>
   </div>
 
-  <!-- Popups -->
-  <div id="popup-maintenance" class="popup">
-    <img src="images/Maintenance.png" alt="Maintenance">
-    <button onclick="closePopup('maintenance')">Fermer</button>
+  <!-- Pop-ups -->
+  <div id="popupMaintenance" class="popup hidden">
+    <img src="images/Maintenance.png" alt="Maintenance" />
+    <p>Site en maintenance. Revenez bientôt !</p>
   </div>
 
-  <div id="popup-interdit" class="popup">
-    <p>En raison de nos services (tabac, alcool, jeux...), l'accès est strictement interdit aux mineurs.</p>
-    <button onclick="closePopup('interdit')">Fermer</button>
+  <div id="popupInterdit" class="popup hidden">
+    <img src="images/Interdit.png" alt="Interdit" />
+    <p>Accès réservé aux personnes majeures.</p>
   </div>
 
   <script src="script.js"></script>
