@@ -22,16 +22,48 @@
     <img src="images/interdit.png" alt="Interdit aux mineurs" class="interdit" />
 
     <div class="actions">
-      <a href="tel:0965240755" class="action-btn">
-        📞 Appeler
-      </a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=6+Rue+de+la+Tonnelle,+49400+Saumur" target="_blank" class="action-btn">
-        📍 Itinéraire
-      </a>
-      <a href="mailto:contact@lebar.fr" class="action-btn">
-        ✉️ Nous écrire
-      </a>
+      <a href="tel:0965240755" class="action-btn">📞 Appeler</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=6+Rue+de+la+Tonnelle,+49400+Saumur" target="_blank" class="action-btn">📍 Itinéraire</a>
+      <a href="mailto:contact@lebar.fr" class="action-btn">✉️ Nous écrire</a>
     </div>
   </main>
+
+  <!-- Pop-up Maintenance -->
+  <div id="popup-maintenance" class="popup">
+    <div class="popup-content">
+      <img src="images/maintenance.png" alt="Maintenance" class="popup-img" />
+      <h2>Site en maintenance</h2>
+      <p>On bricole un peu... Revenez bientôt !</p>
+      <button onclick="closePopup('popup-maintenance')">Fermer</button>
+    </div>
+  </div>
+
+  <!-- Pop-up Interdit -->
+  <div id="popup-interdit" class="popup">
+    <div class="popup-content">
+      <img src="images/interdit-popup.png" alt="Interdit" class="popup-img" />
+      <h2>Accès réservé</h2>
+      <p>Ce site contient des contenus interdits aux mineurs : Tabac, jeux FDJ, Loterie...</p>
+      <button onclick="closePopup('popup-interdit')">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    document.querySelector('.enter-btn').addEventListener('click', function () {
+      openPopup('popup-maintenance');
+    });
+
+    document.querySelector('.interdit').addEventListener('click', function () {
+      openPopup('popup-interdit');
+    });
+  </script>
 </body>
 </html>
