@@ -1,21 +1,46 @@
-<div class="container">
-  <div class="photos">
-    <img src="images/Exterieur.jpg" alt="Extérieur">
-    <img src="images/Interieur.jpg" alt="Intérieur">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Bar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="photos">
+      <img src="images/Exterieur.jpg" alt="Extérieur">
+      <img src="images/Interieur.jpg" alt="Intérieur">
+    </div>
+
+    <img src="images/Logo.png" alt="Logo" class="logo">
+
+    <button class="btn main-btn" onclick="showPopup('maintenance')">ENTREZ</button>
+
+    <div class="actions">
+      <button onclick="window.location.href='tel:0965240755'">📞 Appeler</button>
+      <button onclick="window.location.href='mailto:contact@code-bar.fr'">📧 Écrire</button>
+      <button onclick="openMaps()">📍 Itinéraire</button>
+    </div>
+
+    <div class="interdit" onclick="showPopup('interdit')">
+      <img src="images/Interdit.png" alt="Interdit">
+      <p>Accès interdit aux mineurs</p>
+    </div>
   </div>
 
-  <img src="images/Logo.png" alt="Logo" class="logo">
-
-  <button class="btn main-btn" onclick="showPopup('maintenance')">ENTREZ</button>
-
-  <div class="actions">
-    <button onclick="window.location.href='tel:0965240755'">📞 Appeler</button>
-    <button onclick="window.location.href='mailto:contact@code-bar.fr'">📧 Écrire</button>
-    <button onclick="openMaps()">📍 Itinéraire</button>
+  <!-- Popups -->
+  <div id="popup-maintenance" class="popup">
+    <img src="images/Maintenance.png" alt="Maintenance">
+    <button onclick="closePopup('maintenance')">Fermer</button>
   </div>
 
-  <div class="interdit" onclick="showPopup('interdit')">
-    <img src="images/Interdit.png" alt="Interdit">
-    <p>Accès interdit aux mineurs</p>
+  <div id="popup-interdit" class="popup">
+    <p>En raison de nos services (tabac, alcool, jeux...), l'accès est strictement interdit aux mineurs.</p>
+    <button onclick="closePopup('interdit')">Fermer</button>
   </div>
-</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
