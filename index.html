@@ -1,199 +1,91 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Le Code Bar</title>
+  <meta charset="UTF-8">
+  <title>Page d'accueil</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000000;
-      color: #d4af37;
-    }
-
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    header img {
-      height: 80px;
-    }
-
-    header h1 {
-      font-size: 2rem;
-      margin-top: 1rem;
-      font-family: 'Georgia', serif;
-      letter-spacing: 2px;
-    }
-
-    .photos {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .photos img {
-      max-width: 400px;
-      width: 100%;
-      border: 2px solid #d4af37;
-      border-radius: 8px;
-    }
-
-    .intro {
-      text-align: center;
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem 0;
-      flex-wrap: wrap;
-    }
-
-    .buttons button {
-      background-color: transparent;
-      border: 2px solid #d4af37;
-      color: #d4af37;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .buttons button:hover {
-      background-color: #d4af37;
-      color: #0f1f1c;
-    }
-
-    .warning {
-      text-align: center;
-      margin: 2rem 0;
-      cursor: pointer;
-    }
-
-    .warning img {
-      height: 60px;
-    }
-
-    .warning p {
-      margin-top: 0.5rem;
-      font-weight: bold;
-    }
-
-    .enter {
-      text-align: center;
-      margin: 3rem 0;
-    }
-
-    .enter button {
-      background-color: #d4af37;
-      color: #0f1f1c;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    /* Pop-up styles */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      z-index: 999;
+      justify-content: center;
+      min-height: 100vh;
     }
 
-    .popup-content {
-      background-color: #1c2b28;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 600px;
-      color: #fff;
-      text-align: center;
-      position: relative;
+    .logo {
+      width: 200px;
+      max-width: 80%;
+      margin-bottom: 20px;
     }
 
-    .popup-content img {
-      max-width: 100%;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 800px;
+      margin-bottom: 30px;
+    }
+
+    .grid-item {
+      background-color: white;
       border-radius: 8px;
-      margin-bottom: 1rem;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .popup-content h2 {
-      color: #d4af37;
+    .grid-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
     }
 
-    .close-btn {
-      position: absolute;
-      top: 10px; right: 15px;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.5rem;
-      cursor: pointer;
+    .button-container {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .button-container a {
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .button-container a:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="images/logo.png" alt="Logo de l'entreprise" />
-    <h1>LE CODE BAR</h1>
-  </header>
+  <img src="logo.png" alt="Logo" class="logo">
 
-  <div class="photos">
-    <img src="images/interieur.jpg" alt="Photo intérieure" />
-    <img src="images/exterieur.jpg" alt="Photo extérieure" />
-  </div>
-
-  <div class="intro">
-    <p>Bienvenue dans notre établissement — un lieu unique où se rencontrent convivialité, savoir-faire et ambiance chaleureuse.</p>
-  </div>
-
-  <div class="buttons">
-    <button onclick="location.href='mailto:contact@code-bar.fr'">Nous écrire</button>
-    <button onclick="location.href='tel: 09 65 24 07 55'">Nous appeler</button>
-    <button onclick="window.open('https://maps.google.com')">Nous visiter</button>
-  </div>
-
-  <div class="warning" onclick="document.getElementById('popup-reglement').style.display='flex'">
-    <img src="images/interdit.png" alt="Interdit aux mineurs" />
-    <p>Interdit aux mineurs</p>
-  </div>
-
-  <div class="enter">
-    <button onclick="document.getElementById('popup-maintenance').style.display='flex'">ENTREZ</button>
-  </div>
-
-  <!-- Pop-up règlement -->
-  <div class="popup" id="popup-reglement">
-    <div class="popup-content">
-      <button class="close-btn" onclick="document.getElementById('popup-reglement').style.display='none'">&times;</button>
-      <h2>Règlement officiel</h2>
-      <p>Notre établissement est strictement interdit aux mineurs en raison de la vente de tabacs, d’alcools et de la présence de jeux d’argent. Merci de votre compréhension.</p>
+  <div class="grid">
+    <div class="grid-item">
+      <img src="photo1.jpg" alt="Photo 1">
+    </div>
+    <div class="grid-item">
+      <img src="photo2.jpg" alt="Photo 2">
+    </div>
+    <div class="grid-item">
+      <img src="photo3.jpg" alt="Photo 3">
     </div>
   </div>
 
-  <!-- Pop-up maintenance -->
-  <div class="popup" id="popup-maintenance">
-    <div class="popup-content">
-      <button class="close-btn" onclick="document.getElementById('popup-maintenance').style.display='none'">&times;</button>
-      <img src="images/maintenance.png" alt="Visuel de maintenance" />
-      <h2>Site en maintenance</h2>
-      <p>Nous préparons quelque chose d’exceptionnel. Revenez bientôt !</p>
-    </div>
+  <div class="button-container">
+    <a href="#">Bouton 1</a>
+    <a href="#">Bouton 2</a>
+    <a href="#">Bouton 3</a>
   </div>
 
 </body>
