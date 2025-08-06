@@ -1,144 +1,21 @@
+/* Style général du corps de la page */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-  color: white;
-  overflow: hidden;
-}
-
-.wrapper {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.center-content {
+  background-color: #f0f8ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  z-index: 2;
+  padding: 50px;
+  margin: 0;
 }
 
-.logo {
-  width: 250px;
-  filter: drop-shadow(0 0 10px #ff0033);
+/* Titre principal */
+h1 {
+  color: #2c3e50;
+  font-size: 3em;
   margin-bottom: 20px;
 }
 
-#enterBtn {
-  background-color: #ff0033;
-  color: white;
-  font-size: 22px;
-  padding: 15px 40px;
-  border-radius: 50px;
-  box-shadow: 0 0 20px #ff0033;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-#enterBtn:hover {
-  transform: scale(1.05);
-}
-
-.photos {
-  position: absolute;
-  top: 10%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 5%;
-  z-index: 1;
-}
-
-.photo {
-  width: 200px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #ff0033;
-  transform: rotate(-5deg);
-  transition: transform 0.3s ease;
-}
-
-.photo.right {
-  transform: rotate(5deg);
-}
-
-footer {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-}
-
-.contact button {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid #fff;
-  color: #fff;
-  padding: 10px 20px;
-  margin: 10px;
-  border-radius: 30px;
-  box-shadow: 0 0 10px #ff0033;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s ease;
-}
-
-.contact button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.interdit {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #ff0033;
-  cursor: pointer;
-}
-
-.interdit img {
-  width: 40px;
-  filter: drop-shadow(0 0 5px #ff0033);
-}
-
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #111;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 30px #ff0033;
-  border: 2px solid #ff0033;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-  width: 300px;
-  text-align: center;
-}
-
-.popup img {
-  width: 100px;
-  margin-bottom: 15px;
-  filter: drop-shadow(0 0 10px #ff0033);
-}
-
-.popup button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #ff0033;
-  border: none;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.hidden {
-  display: none;
+/* Paragraphe */
+p {
+  color: #34495e;
+  font-size: 1.2em;
 }
