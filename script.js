@@ -1,12 +1,14 @@
-function showPopup(type) {
-  document.getElementById(`popup-${type}`).style.display = 'block';
-}
-
-function closePopup(type) {
-  document.getElementById(`popup-${type}`).style.display = 'none';
-}
-
-function openMaps() {
-  const destination = encodeURIComponent("Code Bar, Saumur, France");
-  window.open(`https://www.google.com/maps/dir/?api=1&destination=${destination}`, '_blank');
-}
+document.getElementById("enterBtn").addEventListener("click", () => {
+  const ageConfirmed = confirm("Avez-vous plus de 18 ans ?");
+  if (!ageConfirmed) {
+    document.getElementById("popupInterdit").classList.remove("hidden");
+  } else {
+    const underMaintenance = false; // Change to true to simulate maintenance
+    if (underMaintenance) {
+      document.getElementById("popupMaintenance").classList.remove("hidden");
+    } else {
+      alert("Bienvenue au Code Bar !");
+      // Redirection possible ici
+    }
+  }
+});
