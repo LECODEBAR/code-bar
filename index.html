@@ -2,195 +2,78 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Bar Saumur</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0a0a0a;
+      font-family: Arial, sans-serif;
+      background-color: #111;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
     }
 
-    .logo {
-      max-width: 400px;
-      margin-top: 60px;
-      animation: fadeIn 1.5s ease;
-    }
-
-    .enter-button {
-      margin: 30px 0;
-      padding: 18px 40px;
-      font-size: 20px;
-      background-color: #d4af37;
-      border: none;
-      color: #000;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
-    }
-
-    .enter-button:hover {
-      transform: scale(1.05);
-    }
-
-    .popup, .popup-minors {
-      display: none;
-      position: fixed;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #222;
-      padding: 40px;
-      border: 2px solid #d4af37;
-      border-radius: 12px;
-      z-index: 1000;
-      text-align: center;
-      max-width: 90%;
-    }
-
-    .popup img {
-      max-width: 300px;
-      margin-bottom: 20px;
-    }
-
-    .popup h2, .popup-minors h2 {
-      margin: 0 0 10px;
-      font-size: 24px;
+    h2 {
       color: #d4af37;
+      text-align: center;
+      margin: 40px 0 20px;
     }
 
-    .popup p, .popup-minors p {
-      font-size: 18px;
-    }
-
-    .photos {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      margin: 60px auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .photos-section {
+      padding: 20px;
+      text-align: center;
     }
 
     .photos img {
       width: 300px;
-      height: 200px;
-      object-fit: cover;
-      border: 4px solid #d4af37;
-      border-radius: 20px;
-      position: absolute;
-      transition: transform 0.4s ease;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     }
 
-    .photos img:nth-child(1) {
-      transform: rotate(-8deg);
-      left: 10%;
-      top: 0;
-      z-index: 1;
-    }
-
-    .photos img:nth-child(2) {
-      transform: rotate(6deg);
-      right: 10%;
-      top: 40px;
-      z-index: 2;
-    }
-
-    .photos img:hover {
-      transform: scale(1.05);
-      z-index: 3;
-    }
-
-    .contact-buttons {
-      display: flex;
-      gap: 25px;
-      margin: 60px 0;
-      flex-wrap: wrap;
-      justify-content: center;
+    .contact-section {
+      padding: 40px 20px;
+      text-align: center;
+      background-color: #1a1a1a;
     }
 
     .contact-buttons a {
-      padding: 14px 24px;
+      display: inline-block;
+      margin: 10px 15px;
+      padding: 12px 20px;
       background-color: #d4af37;
-      color: #000;
+      color: #111;
       text-decoration: none;
-      border-radius: 8px;
+      border-radius: 6px;
       font-weight: bold;
-      font-size: 16px;
       transition: background-color 0.3s ease;
     }
 
     .contact-buttons a:hover {
-      background-color: #fff;
-    }
-
-    .footer {
-      margin-bottom: 40px;
-      cursor: pointer;
-    }
-
-    .footer img {
-      max-width: 100px;
-      opacity: 0.8;
-      transition: transform 0.3s ease;
-    }
-
-    .footer img:hover {
-      transform: scale(1.1);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      background-color: #bfa133;
     }
   </style>
 </head>
 <body>
 
-  <!-- Logo principal -->
-  <img src="images/Logo.png" alt="Code Bar Logo" class="logo">
+  <!-- Section Photos -->
+  <section class="photos-section">
+    <h2>Notre établissement</h2>
+    <div class="photos">
+      <img src="images/Interieur.jpg" alt="Intérieur du bar">
+      <img src="images/Exterieur.jpg" alt="Extérieur du bar">
+    </div>
+  </section>
 
-  <!-- Bouton ENTREE -->
-  <button class="enter-button" onclick="document.getElementById('popup').style.display='block'">ENTREZ</button>
-
-  <!-- Pop-up maintenance -->
-  <div class="popup" id="popup">
-    <img src="images/Maintenance.png" alt="Maintenance">
-    <h2>Site en maintenance</h2>
-    <p>Revenez bientôt pour découvrir notre univers.</p>
-  </div>
-
-  <!-- Photos originales -->
-  <div class="photos">
-    <img src="images/Interieur.jpg" alt="Intérieur">
-    <img src="images/Exterieur.jpg" alt="Extérieur">
-  </div>
-
-  <!-- Boutons de contact automatiques -->
-  <div class="contact-buttons">
-    <a href="mailto:contact@code-bar.fr">📧 Envoyer un mail</a>
-    <a href="tel:+33965240755">📞 Appeler</a>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=6+rue+de+la+tonnelle+49400+Saumur" target="_blank">📍 Itinéraire</a>
-  </div>
-
-  <!-- Logo interdit mineurs cliquable -->
-  <div class="footer" onclick="document.getElementById('popup-minors').style.display='block'">
-    <img src="images/Interdit.png" alt="Interdit aux mineurs">
-  </div>
-
-  <!-- Pop-up explicatif mineurs -->
-  <div class="popup-minors" id="popup-minors">
-    <h2>Accès interdit aux mineurs</h2>
-    <p>Ce site représente un établissement réservé aux personnes majeures. L'accès est interdit aux mineurs conformément à la réglementation en vigueur.</p>
-  </div>
+  <!-- Section Contact -->
+  <section class="contact-section">
+    <h2>Nous contacter</h2>
+    <div class="contact-buttons">
+      <a href="mailto:contact@code-bar.fr">📧 Envoyer un mail</a>
+      <a href="tel:+33965240755">📞 Appeler</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=6+rue+de+la+tonnelle+49400+Saumur" target="_blank">📍 Itinéraire</a>
+    </div>
+  </section>
 
 </body>
 </html>
