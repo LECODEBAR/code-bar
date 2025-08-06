@@ -110,3 +110,32 @@ body {
   margin-top: 5px;
   color: #ff5555;
 }
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  padding: 30px;
+  border-radius: 15px;
+  display: none;
+  z-index: 1000;
+  color: white;
+  text-align: center;
+}
+
+.popup img {
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.popup button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #ff0055;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
