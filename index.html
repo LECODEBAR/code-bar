@@ -4,66 +4,197 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Le Code Bar</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f1f1c;
+      color: #d4af37;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    header img {
+      height: 80px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-top: 1rem;
+      font-family: 'Georgia', serif;
+      letter-spacing: 2px;
+    }
+
+    .photos {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .photos img {
+      max-width: 400px;
+      width: 100%;
+      border: 2px solid #d4af37;
+      border-radius: 8px;
+    }
+
+    .intro {
+      text-align: center;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .buttons button {
+      background-color: transparent;
+      border: 2px solid #d4af37;
+      color: #d4af37;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .buttons button:hover {
+      background-color: #d4af37;
+      color: #0f1f1c;
+    }
+
+    .warning {
+      text-align: center;
+      margin: 2rem 0;
+      cursor: pointer;
+    }
+
+    .warning img {
+      height: 60px;
+    }
+
+    .warning p {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+
+    .enter {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .enter button {
+      background-color: #d4af37;
+      color: #0f1f1c;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Pop-up styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-content {
+      background-color: #1c2b28;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 600px;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+
+    .popup-content img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .popup-content h2 {
+      color: #d4af37;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+
   <header>
-    <h1>BIENVENUE AU</h1>
-    <img src="images/logo.png" alt="Logo Le Code Bar" class="logo" />
+    <img src="images/logo.png" alt="Logo de l'entreprise" />
+    <h1>ENTREPRISE</h1>
   </header>
 
-  <main>
-    <section class="photos">
-      <img src="images/exterieur.jpg" alt="Photo extérieur" class="photo" />
-      <img src="images/interieur.jpg" alt="Photo intérieur" class="photo" />
-    </section>
+  <div class="photos">
+    <img src="images/interieur.jpg" alt="Photo intérieure" />
+    <img src="images/exterieur.jpg" alt="Photo extérieure" />
+  </div>
 
-    <button class="enter-btn">ENTRER</button>
-    <img src="images/interdit.png" alt="Interdit aux mineurs" class="interdit" />
+  <div class="intro">
+    <p>Bienvenue dans notre établissement — un lieu unique où se rencontrent convivialité, savoir-faire et ambiance chaleureuse.</p>
+  </div>
 
-    <div class="actions">
-      <a href="tel:0965240755" class="action-btn">📞 Appeler</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=6+Rue+de+la+Tonnelle,+49400+Saumur" target="_blank" class="action-btn">📍 Itinéraire</a>
-      <a href="mailto:contact@lebar.fr" class="action-btn">✉️ Nous écrire</a>
-    </div>
-  </main>
+  <div class="buttons">
+    <button onclick="location.href='mailto:contact@entreprise.fr'">Nous écrire</button>
+    <button onclick="location.href='tel:+33123456789'">Nous appeler</button>
+    <button onclick="window.open('https://maps.google.com')">Nous visiter</button>
+  </div>
 
-  <!-- Pop-up Maintenance -->
-  <div id="popup-maintenance" class="popup">
+  <div class="warning" onclick="document.getElementById('popup-reglement').style.display='flex'">
+    <img src="images/interdit.png" alt="Interdit aux mineurs" />
+    <p>Interdit aux mineurs</p>
+  </div>
+
+  <div class="enter">
+    <button onclick="document.getElementById('popup-maintenance').style.display='flex'">ENTREZ</button>
+  </div>
+
+  <!-- Pop-up règlement -->
+  <div class="popup" id="popup-reglement">
     <div class="popup-content">
-      <img src="images/maintenance.png" alt="Maintenance" class="popup-img" />
+      <button class="close-btn" onclick="document.getElementById('popup-reglement').style.display='none'">&times;</button>
+      <h2>Règlement officiel</h2>
+      <p>Notre établissement est strictement interdit aux mineurs en raison de la vente de tabacs, d’alcools et de la présence de jeux d’argent. Merci de votre compréhension.</p>
+    </div>
+  </div>
+
+  <!-- Pop-up maintenance -->
+  <div class="popup" id="popup-maintenance">
+    <div class="popup-content">
+      <button class="close-btn" onclick="document.getElementById('popup-maintenance').style.display='none'">&times;</button>
+      <img src="images/maintenance.jpg" alt="Visuel de maintenance" />
       <h2>Site en maintenance</h2>
-      <p>On bricole un peu... Revenez bientôt !</p>
-      <button onclick="closePopup('popup-maintenance')">Fermer</button>
+      <p>Nous préparons quelque chose d’exceptionnel. Revenez bientôt !</p>
     </div>
   </div>
 
-  <!-- Pop-up Interdit -->
-  <div id="popup-interdit" class="popup">
-    <div class="popup-content">
-      <img src="images/interdit-popup.png" alt="Interdit" class="popup-img" />
-      <h2>Accès réservé</h2>
-      <p>Ce site contient des contenus interdits aux mineurs : Tabac, jeux FDJ, Loterie...</p>
-      <button onclick="closePopup('popup-interdit')">Fermer</button>
-    </div>
-  </div>
-
-  <script>
-    function openPopup(id) {
-      document.getElementById(id).style.display = 'flex';
-    }
-
-    function closePopup(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-
-    document.querySelector('.enter-btn').addEventListener('click', function () {
-      openPopup('popup-maintenance');
-    });
-
-    document.querySelector('.interdit').addEventListener('click', function () {
-      openPopup('popup-interdit');
-    });
-  </script>
 </body>
 </html>
