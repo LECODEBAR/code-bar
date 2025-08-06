@@ -8,27 +8,27 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+      background: radial-gradient(circle at center, #0d0d0d, #1a1a1a);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 60px 20px;
     }
 
-    .logo-section {
-      text-align: center;
-      margin-top: 60px;
-    }
-
-    .logo-section img {
-      width: 350px;
+    .logo {
+      width: 400px;
       max-width: 90vw;
       filter: drop-shadow(0 0 25px #d4af37);
+      margin-bottom: 30px;
     }
 
     .enter-button {
-      margin-top: 30px;
       padding: 16px 32px;
       font-size: 1.4em;
       background-color: #d4af37;
@@ -39,6 +39,7 @@
       font-weight: bold;
       box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
       transition: transform 0.3s ease;
+      margin-bottom: 60px;
     }
 
     .enter-button:hover {
@@ -46,49 +47,12 @@
       background-color: #bfa133;
     }
 
-    .photos-section {
-      position: relative;
-      width: 100%;
-      max-width: 1000px;
-      height: 400px;
-      margin: 80px 0;
-    }
-
-    .photos-section img {
-      position: absolute;
-      width: 300px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-      transition: transform 0.3s ease;
-    }
-
-    .photos-section img:hover {
-      transform: scale(1.05);
-    }
-
-    .interieur {
-      top: 0;
-      left: 15%;
-      transform: rotate(-6deg);
-    }
-
-    .exterieur {
-      bottom: 0;
-      right: 15%;
-      transform: rotate(6deg);
-    }
-
-    .contact-section {
-      text-align: center;
-      margin-bottom: 80px;
-    }
-
     .contact-buttons {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 20px;
-      margin-top: 30px;
+      margin-bottom: 80px;
     }
 
     .contact-buttons a {
@@ -110,8 +74,62 @@
       transform: scale(1.05);
     }
 
-    /* Popup */
-    .popup {
+    .photo-gallery {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      height: 400px;
+      margin-bottom: 80px;
+    }
+
+    .photo-gallery img {
+      position: absolute;
+      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .photo-gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .interieur {
+      top: 0;
+      left: 10%;
+      transform: rotate(-6deg);
+    }
+
+    .exterieur {
+      bottom: 0;
+      right: 10%;
+      transform: rotate(6deg);
+    }
+
+    .interdit-section {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .interdit-section img {
+      width: 80px;
+      cursor: pointer;
+      filter: drop-shadow(0 0 5px red);
+      transition: transform 0.3s ease;
+    }
+
+    .interdit-section img:hover {
+      transform: scale(1.1);
+    }
+
+    .interdit-section p {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    /* Popups */
+    .popup, .popup-interdit {
       display: none;
       position: fixed;
       top: 50%;
@@ -123,14 +141,25 @@
       box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
       z-index: 1000;
       text-align: center;
+      max-width: 90%;
     }
 
-    .popup h3 {
+    .popup img {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .popup h3, .popup-interdit h3 {
       color: #d4af37;
       margin-bottom: 20px;
     }
 
-    .popup button {
+    .popup p, .popup-interdit p {
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
+    .popup button, .popup-interdit button {
       padding: 10px 20px;
       background-color: #d4af37;
       border: none;
@@ -153,34 +182,47 @@
 </head>
 <body>
 
-  <!-- Logo central -->
-  <section class="logo-section">
-    <img src="images/Logo.png" alt="Logo Code Bar">
+  <div class="container">
+    <!-- Logo central -->
+    <img src="images/Logo.png" alt="Logo Code Bar" class="logo">
+
+    <!-- Bouton Entrez -->
     <button class="enter-button" onclick="openPopup()">ENTREZ</button>
-  </section>
 
-  <!-- Photos originales en diagonale -->
-  <section class="photos-section">
-    <img src="images/Interieur.jpg" alt="Intérieur du bar" class="interieur">
-    <img src="images/Exterieur.jpg" alt="Extérieur du bar" class="exterieur">
-  </section>
-
-  <!-- Boutons de contact -->
-  <section class="contact-section">
-    <h2>Nous contacter</h2>
+    <!-- Boutons de contact -->
     <div class="contact-buttons">
       <a href="mailto:contact@code-bar.fr">📧 contact@code-bar.fr</a>
       <a href="tel:+33965240755">📞 09 65 24 07 55</a>
       <a href="https://www.google.com/maps/dir/?api=1&destination=6+rue+de+la+tonnelle+49400+Saumur" target="_blank">📍 Itinéraire</a>
     </div>
-  </section>
+
+    <!-- Galerie photos originale -->
+    <div class="photo-gallery">
+      <img src="images/Interieur.jpg" alt="Intérieur du bar" class="interieur">
+      <img src="images/Exterieur.jpg" alt="Extérieur du bar" class="exterieur">
+    </div>
+
+    <!-- Logo interdit + message -->
+    <div class="interdit-section">
+      <img src="images/Interdiction.png" alt="Interdit aux mineurs" onclick="openInterditPopup()">
+      <p>Accès réservé aux personnes majeures</p>
+    </div>
+  </div>
 
   <!-- Popup de maintenance -->
-  <div class="overlay" id="overlay" onclick="closePopup()"></div>
+  <div class="overlay" id="overlay" onclick="closePopup(); closeInterditPopup();"></div>
   <div class="popup" id="popup">
+    <img src="images/Maintenance.png" alt="Maintenance">
     <h3>🚧 Site en maintenance</h3>
     <p>Le site est actuellement en cours de mise à jour. Revenez bientôt !</p>
     <button onclick="closePopup()">Fermer</button>
+  </div>
+
+  <!-- Popup interdiction mineurs -->
+  <div class="popup-interdit" id="popup-interdit">
+    <h3>🚫 Interdit aux mineurs</h3>
+    <p>En raison des articles et services proposés (tabac, alcool, jeux...), l’établissement est interdit aux mineurs. Aucun service ne peut leur être rendu conformément à la réglementation en vigueur.</p>
+    <button onclick="closeInterditPopup()">Fermer</button>
   </div>
 
   <script>
@@ -193,7 +235,11 @@
       document.getElementById('popup').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
     }
-  </script>
 
-</body>
-</html>
+    function openInterditPopup() {
+      document.getElementById('popup-interdit').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeInterditPopup() {
+      document.getElementById('popup-interdit').style.display = '
