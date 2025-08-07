@@ -1,9 +1,13 @@
-function openPopup(type) {
-  document.querySelector('.overlay').style.display = 'block';
-  document.getElementById('popup-' + type).style.display = 'flex';
+function showPopup(type) {
+  const popup = document.getElementById(`popup-${type}`);
+  if (popup) {
+    popup.style.display = 'flex';
+  }
 }
 
-function closePopup() {
-  document.querySelector('.overlay').style.display = 'none';
-  document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+function closePopup(type) {
+  const popup = document.getElementById(`popup-${type}`);
+  if (popup) {
+    popup.style.display = 'none';
+  }
 }
