@@ -2,58 +2,32 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Bienvenue - Code Bar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenue</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Logo central -->
-  <div class="logo">
-    <img src="images/Logo.png" alt="Logo Code Bar">
+  <div class="container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <button onclick="showPopup('maintenance')">ENTREZ</button>
   </div>
 
-  <!-- Bouton ENTREE -->
-  <div class="entree">
-    <img src="images/Entrez.png" alt="Entrer" onclick="openPopup('maintenance')">
+  <!-- Pop-up MAINTENANCE -->
+  <div id="popup-maintenance" class="popup">
+    <div class="popup-content">
+      <h2>Site en maintenance</h2>
+      <p>Revenez plus tard !</p>
+      <button onclick="closePopup('maintenance')">Fermer</button>
+    </div>
   </div>
 
-  <!-- Photos immersives -->
-  <div class="photos">
-    <img src="images/Exterieur.jpg" alt="Extérieur" class="photo left">
-    <img src="images/Interieur.jpg" alt="Intérieur" class="photo right">
-  </div>
-
-  <!-- Boutons de contact -->
-  <div class="contact-buttons">
-    <a href="tel:0965240755">
-      <img src="images/Appelez nous.png" alt="Appelez-nous">
-    </a>
-    <a href="mailto:contact@code-bar.fr">
-      <img src="images/Ecrivez nous.png" alt="Écrivez-nous">
-    </a>
-    <a href="https://maps.google.com/?q=6+rue+de+la+Tonnelle+49400+SAUMUR" target="_blank">
-      <img src="images/Nous trouvez.png" alt="Nous trouver">
-    </a>
-  </div>
-
-  <!-- Logo interdit -->
-  <div class="interdit" onclick="openPopup('interdit')">
-    <img src="images/Interdit.png" alt="Interdit aux mineurs">
-    <p>Accès interdit aux mineurs</p>
-  </div>
-
-  <!-- Popups -->
-  <div class="overlay" onclick="closePopup()"></div>
-
-  <div id="popup-maintenance" class="popup hidden">
-    <img src="images/Maintenance.png" alt="Maintenance">
-    <p>🚧 Le site est en cours de maintenance. Revenez bientôt !</p>
-    <button onclick="closePopup()">Fermer</button>
-  </div>
-
-  <div id="popup-interdit" class="popup hidden">
-    <p>🛑 Ce site est réservé aux personnes majeures. En entrant, vous confirmez avoir plus de 18 ans.</p>
-    <button onclick="closePopup()">Fermer</button>
+  <!-- Pop-up INTERDIT -->
+  <div id="popup-interdit" class="popup">
+    <div class="popup-content">
+      <h2>Accès interdit</h2>
+      <p>Vous n'avez pas l'autorisation d'entrer.</p>
+      <button onclick="closePopup('interdit')">Fermer</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
