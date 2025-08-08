@@ -29,7 +29,6 @@
     }
 
     .fond-ecran-container {
-      position: relative;
       flex: 1;
       display: flex;
       justify-content: center;
@@ -37,25 +36,37 @@
       max-height: 70vh;
     }
 
-    .fond-ecran-container img {
-      max-height: 100%;
-      max-width: 100%;
+    .fond-ecran-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fond-ecran-wrapper img.fond {
+      width: 100%;
+      height: auto;
       border-radius: 20px;
       box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+      display: block;
     }
 
     .entrez-btn {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
-      width: 100px;
+      bottom: 15px;
+      right: 15px;
+      width: 90px;
       height: auto;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: none;
     }
 
     .entrez-btn:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 15px #e50914;
     }
 
     .buttons {
@@ -130,6 +141,23 @@
     .close-btn:hover {
       background-color: #c40812;
     }
+
+    /* Optionnel : éléments latéraux */
+    .side-elements {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none; /* évite les clics si vide */
+    }
+
+    .side-elements div {
+      width: 100px;
+      height: 100px;
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body>
@@ -137,8 +165,16 @@
   <div class="page-wrapper">
 
     <div class="fond-ecran-container">
-      <img src="images/Fond ecran.png" alt="Fond d'écran">
-      <img src="images/Entrez.png" alt="Entrez" class="entrez-btn" onclick="showMaintenance()">
+      <div class="fond-ecran-wrapper">
+        <img src="images/Fond ecran.png" alt="Fond d'écran" class="fond">
+        <img src="images/Entrez.png" alt="Entrez" class="entrez-btn" onclick="showMaintenance()">
+
+        <!-- Optionnel : éléments latéraux -->
+        <div class="side-elements">
+          <div id="left-element"></div>
+          <div id="right-element"></div>
+        </div>
+      </div>
     </div>
 
     <div class="buttons">
