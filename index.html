@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Page d'accueil</title>
   <style>
+    @font-face {
+      font-family: 'Broadway';
+      src: local('Broadway'), url('https://fonts.cdnfonts.com/s/14421/Broadway.woff') format('woff');
+    }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -24,29 +29,27 @@
     }
 
     .fond-ecran-container {
+      position: relative;
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      flex: 1;
+      max-height: 70vh;
     }
 
-    .fond-ecran-wrapper {
-      position: relative;
-      display: inline-block;
-    }
-
-    .fond-ecran-wrapper img.fond {
-      display: block;
+    .fond-ecran-container img {
+      max-height: 100%;
+      max-width: 100%;
       border-radius: 20px;
       box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+      display: block;
     }
 
     .entrez-btn {
       position: absolute;
       bottom: 15px;
       right: 15px;
-      width: 90px;
+      width: 80px;
       height: auto;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -137,10 +140,8 @@
   <div class="page-wrapper">
 
     <div class="fond-ecran-container">
-      <div class="fond-ecran-wrapper">
-        <img src="images/Fond ecran.png" alt="Fond d'écran" class="fond">
-        <img src="images/Entrez.png" alt="Entrez" class="entrez-btn" onclick="showMaintenance()">
-      </div>
+      <img src="images/Fond ecran.png" alt="Fond d'écran">
+      <img src="images/Entrez.png" alt="Entrez" class="entrez-btn" onclick="showMaintenance()">
     </div>
 
     <div class="buttons">
