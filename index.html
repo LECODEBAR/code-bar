@@ -37,7 +37,8 @@
       max-height: 70vh;
     }
 
-    .fond-ecran-container img {
+    .fond-ecran {
+      position: relative;
       max-height: 100%;
       max-width: 100%;
       border-radius: 20px;
@@ -49,7 +50,7 @@
       position: absolute;
       bottom: 15px;
       right: 15px;
-      width: 80px;
+      width: 100px;
       height: auto;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -140,7 +141,7 @@
   <div class="page-wrapper">
 
     <div class="fond-ecran-container">
-      <img src="images/Fond ecran.png" alt="Fond d'écran">
+      <img src="images/Fond ecran.png" alt="Fond d'écran" class="fond-ecran">
       <img src="images/Entrez.png" alt="Entrez" class="entrez-btn" onclick="showMaintenance()">
     </div>
 
