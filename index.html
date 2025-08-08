@@ -52,12 +52,12 @@
     }
 
     .photo-left {
-      left: 10%;
+      left: 5%;
       transform: rotate(-8deg);
     }
 
     .photo-right {
-      right: 10%;
+      right: 5%;
       transform: rotate(8deg);
     }
 
@@ -69,18 +69,14 @@
       flex-wrap: wrap;
     }
 
-    .buttons a {
-      background-color: #e50914;
-      color: white;
-      text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+    .buttons a img {
+      width: 180px;
+      height: auto;
+      transition: transform 0.3s ease;
     }
 
-    .buttons a:hover {
-      background-color: #ff1f2c;
+    .buttons a:hover img {
+      transform: scale(1.05);
     }
 
     footer {
@@ -106,9 +102,8 @@
         width: 200px;
       }
 
-      .buttons a {
-        padding: 10px 18px;
-        font-size: 14px;
+      .buttons a img {
+        width: 140px;
       }
 
       .footer-text {
@@ -121,18 +116,27 @@
 
   <div class="container">
     <!-- Photos inclinées derrière le logo -->
-    <img src="images/photo1.jpg" alt="Photo gauche" class="photo photo-left">
-    <img src="images/photo2.jpg" alt="Photo droite" class="photo photo-right">
+    <img src="images/Exterieur.jpg" alt="Photo extérieur" class="photo photo-left">
+    <img src="images/Interieur.jpg" alt="Photo intérieur" class="photo photo-right">
 
     <!-- Logo central -->
     <img src="images/Logo.png" alt="Logo central" class="logo">
   </div>
 
-  <!-- Boutons de contact -->
+  <!-- Boutons en image -->
   <div class="buttons">
-    <a href="tel:+33612345678">📞 Appelez-nous</a>
-    <a href="mailto:charlie@example.com?subject=Demande%20d'information">📧 Écrivez-nous</a>
-    <a href="https://www.google.com/maps?q=12+rue+des+Lilas,+49400+Saumur" target="_blank">📍 Nous trouver</a>
+    <a href="tel:+33612345678">
+      <img src="images/Appelez nous.png" alt="Appelez-nous">
+    </a>
+    <a href="mailto:charlie@example.com?subject=Demande%20d'information">
+      <img src="images/Ecrivez nous.png" alt="Écrivez-nous">
+    </a>
+    <a href="https://www.google.com/maps?q=12+rue+des+Lilas,+49400+Saumur" target="_blank">
+      <img src="images/Nous trouvez.png" alt="Nous trouver">
+    </a>
+    <a href="entree.html">
+      <img src="images/Entrez.png" alt="Entrez">
+    </a>
   </div>
 
   <!-- Pied de page -->
