@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page immersive</title>
+  <title>Code Bar</title>
   <style>
     body {
       margin: 0;
@@ -15,17 +15,20 @@
 
     .container {
       position: relative;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding-top: 100px;
+      gap: 40px;
     }
 
     .logo {
       width: 100%;
-      max-width: 400px;
+      max-width: 500px;
       height: auto;
       z-index: 2;
       position: relative;
-      animation: fadeIn 2s ease-in-out forwards;
+      animation: fadeIn 2s ease-in-out forwards, glow 3s infinite alternate;
       opacity: 0;
     }
 
@@ -40,29 +43,44 @@
       }
     }
 
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 10px #e50914;
+      }
+      100% {
+        box-shadow: 0 0 30px #e50914;
+      }
+    }
+
     .photo {
-      position: absolute;
       width: 300px;
       height: auto;
-      top: 0;
-      z-index: 1;
-      opacity: 0.9;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: slideIn 1.5s ease-out forwards;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
       transition: transform 0.5s ease;
     }
 
     .photo-left {
-      left: 5%;
-      transform: rotate(-8deg);
+      animation-delay: 0.5s;
+      transform: rotate(-10deg);
     }
 
     .photo-right {
-      right: 5%;
-      transform: rotate(8deg);
+      animation-delay: 1s;
+      transform: rotate(10deg);
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 0.9;
+        transform: translateY(0);
+      }
     }
 
     .buttons {
-      margin-top: 300px;
+      margin-top: 80px;
       display: flex;
       justify-content: center;
       gap: 20px;
@@ -90,6 +108,7 @@
       width: 60px;
       height: auto;
       margin-bottom: 10px;
+      cursor: pointer;
     }
 
     .footer-text {
@@ -97,7 +116,51 @@
       color: #ccc;
     }
 
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      pointer-events: all;
+    }
+
+    .popup-content {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 90%;
+      animation: zoomIn 0.5s ease;
+    }
+
+    .popup-image {
+      max-width: 100%;
+      height: auto;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
       .photo {
         width: 200px;
       }
@@ -114,36 +177,69 @@
 </head>
 <body>
 
+  <!-- PHOTOS + LOGO -->
   <div class="container">
-    <!-- Photos inclinées derrière le logo -->
     <img src="images/Exterieur.jpg" alt="Photo extérieur" class="photo photo-left">
-    <img src="images/Interieur.jpg" alt="Photo intérieur" class="photo photo-right">
-
-    <!-- Logo central -->
     <img src="images/Logo.png" alt="Logo central" class="logo">
+    <img src="images/Interieur.jpg" alt="Photo intérieur" class="photo photo-right">
   </div>
 
-  <!-- Boutons en image -->
+  <!-- BOUTONS -->
   <div class="buttons">
-    <a href="tel:+33612345678">
+    <a href="tel:0965240755">
       <img src="images/Appelez nous.png" alt="Appelez-nous">
     </a>
-    <a href="mailto:charlie@example.com?subject=Demande%20d'information">
+    <a href="mailto:contact@code-bar.fr">
       <img src="images/Ecrivez nous.png" alt="Écrivez-nous">
     </a>
-    <a href="https://www.google.com/maps?q=12+rue+des+Lilas,+49400+Saumur" target="_blank">
+    <a href="https://www.google.com/maps?q=6+rue+de+la+Tonnelle,+49400+Saumur" target="_blank">
       <img src="images/Nous trouvez.png" alt="Nous trouver">
     </a>
-    <a href="entree.html">
+    <a href="#" onclick="openPopup('maintenance')">
       <img src="images/Entrez.png" alt="Entrez">
     </a>
   </div>
 
-  <!-- Pied de page -->
+  <!-- PIED DE PAGE -->
   <footer>
-    <img src="images/Interdit.png" alt="Logo interdit" class="footer-logo">
+    <img src="images/Interdit.png" alt="Logo interdit" class="footer-logo" onclick="openPopup('interdit')">
     <div class="footer-text">⚠️ Ce site est strictement interdit aux mineurs.</div>
   </footer>
+
+  <!-- POP-UP MAINTENANCE -->
+  <div id="popup-maintenance" class="popup-overlay">
+    <div class="popup-content">
+      <img src="images/Maintenance.png" alt="Visuel Maintenance" class="popup-image">
+    </div>
+  </div>
+
+  <!-- POP-UP INTERDIT -->
+  <div id="popup-interdit" class="popup-overlay">
+    <div class="popup-content">
+      <p style="color: white; font-size: 16px; line-height: 1.5;">
+        ⚠️ Ce site est strictement interdit aux mineurs en raison des articles et services proposés (tabac, jeux, alcools...).
+      </p>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    function openPopup(type) {
+      const popupId = type === 'maintenance' ? 'popup-maintenance' : 'popup-interdit';
+      const popup = document.getElementById(popupId);
+      popup.style.display = 'flex';
+
+      // Bloque les interactions
+      document.body.style.pointerEvents = 'none';
+      popup.style.pointerEvents = 'auto';
+
+      // Ferme automatiquement après 5 secondes
+      setTimeout(() => {
+        popup.style.display = 'none';
+        document.body.style.pointerEvents = 'auto';
+      }, 5000);
+    }
+  </script>
 
 </body>
 </html>
