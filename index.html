@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Bienvenue</title>
   <style>
+    @font-face {
+      font-family: 'Broadway';
+      src: local('Broadway'), url('https://fonts.cdnfonts.com/s/14421/Broadway.woff') format('woff');
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -14,7 +19,7 @@
     }
 
     h1 {
-      font-size: 60px;
+      font-size: 70px;
       margin-top: 40px;
       color: #fff;
       letter-spacing: 3px;
@@ -25,29 +30,43 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 40px;
+      gap: 60px;
       margin-top: 40px;
-      perspective: 1000px;
+      perspective: 1200px;
     }
 
     .photo {
-      width: 220px;
+      width: 200px;
       height: auto;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
       transition: transform 0.5s ease;
     }
 
     .photo-left {
-      transform: rotateY(25deg) rotateZ(-10deg);
+      transform: rotateY(45deg) rotateZ(-15deg) scale(0.9);
     }
 
     .photo-right {
-      transform: rotateY(-25deg) rotateZ(10deg);
+      transform: rotateY(-45deg) rotateZ(15deg) scale(0.9);
+    }
+
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 20px #e50914, 0 0 40px #e50914, 0 0 60px #e50914;
+      }
+      50% {
+        box-shadow: 0 0 40px #ff1a1a, 0 0 80px #ff1a1a, 0 0 120px #ff1a1a;
+      }
+      100% {
+        box-shadow: 0 0 20px #e50914, 0 0 40px #e50914, 0 0 60px #e50914;
+      }
     }
 
     .logo-central img {
-      width: 500px; /* Agrandi au double */
+      width: 1024px;
       height: auto;
+      animation: glowPulse 2.5s infinite ease-in-out;
+      border-radius: 20px;
     }
 
     .entrez {
@@ -74,7 +93,7 @@
     }
 
     .buttons a img {
-      width: 160px;
+      width: 120px;
       height: auto;
       cursor: pointer;
       transition: transform 0.3s ease;
