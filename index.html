@@ -34,12 +34,11 @@
       align-items: center;
       margin-top: 40px;
       height: 600px;
-      perspective: 1500px;
     }
 
     .photo {
       position: absolute;
-      width: 220px;
+      width: 200px;
       height: auto;
       box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
       transition: transform 0.5s ease;
@@ -47,15 +46,15 @@
     }
 
     .photo-left {
-      left: 15%;
-      top: 50%;
-      transform: translateY(-50%) rotateY(60deg) rotateZ(-20deg) scale(1.2);
+      left: 10%;
+      top: 10%;
+      transform: rotateY(30deg) rotateZ(-10deg) scale(1.1);
     }
 
     .photo-right {
-      right: 15%;
-      top: 50%;
-      transform: translateY(-50%) rotateY(-60deg) rotateZ(20deg) scale(1.2);
+      right: 10%;
+      bottom: 10%;
+      transform: rotateY(-30deg) rotateZ(10deg) scale(1.1);
     }
 
     @keyframes glowPulse {
@@ -75,7 +74,7 @@
     }
 
     .logo-central img {
-      width: 1024px;
+      width: 800px; /* Réduction du logo */
       height: auto;
       animation: glowPulse 2.5s infinite ease-in-out;
       border-radius: 20px;
