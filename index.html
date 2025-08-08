@@ -27,56 +27,17 @@
       font-family: 'Broadway', Impact, sans-serif;
     }
 
-    .main-section {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .fond-ecran {
       margin-top: 40px;
-      height: 600px;
     }
 
-    .photo {
-      position: absolute;
-      width: 200px;
+    .fond-ecran img {
+      width: 100%;
+      max-width: 1200px;
       height: auto;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-      transition: transform 0.5s ease;
-      z-index: 1;
-    }
-
-    .photo-left {
-      left: 10%;
-      top: 10%;
-      transform: rotateY(30deg) rotateZ(-10deg) scale(1.1);
-    }
-
-    .photo-right {
-      right: 10%;
-      bottom: 10%;
-      transform: rotateY(-30deg) rotateZ(10deg) scale(1.1);
-    }
-
-    @keyframes glowPulse {
-      0% {
-        box-shadow: 0 0 20px #e50914, 0 0 40px #e50914, 0 0 60px #e50914;
-      }
-      50% {
-        box-shadow: 0 0 40px #ff1a1a, 0 0 80px #ff1a1a, 0 0 120px #ff1a1a;
-      }
-      100% {
-        box-shadow: 0 0 20px #e50914, 0 0 40px #e50914, 0 0 60px #e50914;
-      }
-    }
-
-    .logo-central {
-      z-index: 2;
-    }
-
-    .logo-central img {
-      width: 800px; /* Réduction du logo */
-      height: auto;
-      animation: glowPulse 2.5s infinite ease-in-out;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
       border-radius: 20px;
     }
 
@@ -178,19 +139,13 @@
 
   <h1>BIENVENUE</h1>
 
-  <div class="main-section">
-    <img src="images/Exterieur.jpg" alt="Photo Extérieur" class="photo photo-left">
-    
-    <div class="logo-central">
-      <img src="images/Logo.png" alt="Logo Central">
-      <div class="entrez">
-        <a href="#" onclick="showMaintenance()">
-          <img src="images/Entrez.png" alt="Entrez">
-        </a>
-      </div>
+  <div class="fond-ecran">
+    <img src="images/Fond ecran.png" alt="Fond d'écran">
+    <div class="entrez">
+      <a href="#" onclick="showMaintenance()">
+        <img src="images/Entrez.png" alt="Entrez">
+      </a>
     </div>
-
-    <img src="images/Interieur.jpg" alt="Photo Intérieur" class="photo photo-right">
   </div>
 
   <div class="buttons">
