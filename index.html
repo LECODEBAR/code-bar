@@ -4,11 +4,6 @@
   <meta charset="UTF-8">
   <title>Page d'accueil</title>
   <style>
-    @font-face {
-      font-family: 'Broadway';
-      src: local('Broadway'), url('https://fonts.cdnfonts.com/s/14421/Broadway.woff') format('woff');
-    }
-
     html, body {
       margin: 0;
       padding: 0;
@@ -29,28 +24,22 @@
     }
 
     .fond-ecran-container {
-      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      max-height: 70vh;
+      position: relative;
+      flex: 1;
     }
 
     .fond-ecran-wrapper {
       position: relative;
-      width: 100%;
-      max-width: 1000px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: inline-block;
     }
 
     .fond-ecran-wrapper img.fond {
-      width: 100%;
-      height: auto;
+      display: block;
       border-radius: 20px;
       box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
-      display: block;
     }
 
     .entrez-btn {
@@ -141,23 +130,6 @@
     .close-btn:hover {
       background-color: #c40812;
     }
-
-    /* Optionnel : éléments latéraux */
-    .side-elements {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none; /* évite les clics si vide */
-    }
-
-    .side-elements div {
-      width: 100px;
-      height: 100px;
-      pointer-events: auto;
-    }
   </style>
 </head>
 <body>
@@ -168,12 +140,6 @@
       <div class="fond-ecran-wrapper">
         <img src="images/Fond ecran.png" alt="Fond d'écran" class="fond">
         <img src="images/Entrez.png" alt="Entrez" class="entrez-btn" onclick="showMaintenance()">
-
-        <!-- Optionnel : éléments latéraux -->
-        <div class="side-elements">
-          <div id="left-element"></div>
-          <div id="right-element"></div>
-        </div>
       </div>
     </div>
 
