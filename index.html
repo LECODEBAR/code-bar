@@ -11,6 +11,15 @@
       background-color: #111;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-top: 40px;
+      color: #e50914;
+      letter-spacing: 2px;
     }
 
     .container {
@@ -18,7 +27,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-top: 100px;
+      padding-top: 40px;
       gap: 40px;
     }
 
@@ -53,13 +62,12 @@
     }
 
     .photo {
-      width: 300px;
+      width: 280px;
       height: auto;
       opacity: 0;
-      transform: translateY(50px);
-      animation: slideIn 1.5s ease-out forwards;
+      transform: scale(0.8) translateY(50px);
+      animation: zoomInPhoto 2s ease-out forwards;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-      transition: transform 0.5s ease;
     }
 
     .photo-left {
@@ -72,23 +80,37 @@
       transform: rotate(10deg);
     }
 
-    @keyframes slideIn {
+    @keyframes zoomInPhoto {
       to {
-        opacity: 0.9;
-        transform: translateY(0);
+        opacity: 0.95;
+        transform: scale(1) translateY(0);
       }
     }
 
+    .entrez {
+      margin-top: 20px;
+    }
+
+    .entrez a img {
+      width: 200px;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .entrez a:hover img {
+      transform: scale(1.05);
+    }
+
     .buttons {
-      margin-top: 80px;
+      margin-top: 40px;
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
       flex-wrap: wrap;
     }
 
     .buttons a img {
-      width: 180px;
+      width: 140px;
       height: auto;
       transition: transform 0.3s ease;
     }
@@ -100,7 +122,6 @@
     footer {
       margin-top: 60px;
       padding: 20px;
-      text-align: center;
       background-color: #222;
     }
 
@@ -156,6 +177,10 @@
     }
 
     @media (max-width: 600px) {
+      h1 {
+        font-size: 32px;
+      }
+
       .container {
         flex-direction: column;
         gap: 20px;
@@ -165,8 +190,12 @@
         width: 200px;
       }
 
+      .entrez a img {
+        width: 160px;
+      }
+
       .buttons a img {
-        width: 140px;
+        width: 120px;
       }
 
       .footer-text {
@@ -177,6 +206,9 @@
 </head>
 <body>
 
+  <!-- EN-TÊTE -->
+  <h1>BIENVENUE</h1>
+
   <!-- PHOTOS + LOGO -->
   <div class="container">
     <img src="images/Exterieur.jpg" alt="Photo extérieur" class="photo photo-left">
@@ -184,9 +216,16 @@
     <img src="images/Interieur.jpg" alt="Photo intérieur" class="photo photo-right">
   </div>
 
-  <!-- BOUTONS -->
+  <!-- BOUTON ENTREZ -->
+  <div class="entrez">
+    <a href="#" onclick="openPopup('maintenance')">
+      <img src="images/Entrez.png" alt="Entrez">
+    </a>
+  </div>
+
+  <!-- BOUTONS COORDONNÉES -->
   <div class="buttons">
-    <a href="tel:0965240755">
+    <a href="tel:00965240755">
       <img src="images/Appelez nous.png" alt="Appelez-nous">
     </a>
     <a href="mailto:contact@code-bar.fr">
@@ -194,9 +233,6 @@
     </a>
     <a href="https://www.google.com/maps?q=6+rue+de+la+Tonnelle,+49400+Saumur" target="_blank">
       <img src="images/Nous trouvez.png" alt="Nous trouver">
-    </a>
-    <a href="#" onclick="openPopup('maintenance')">
-      <img src="images/Entrez.png" alt="Entrez">
     </a>
   </div>
 
