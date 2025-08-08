@@ -2,115 +2,46 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Page de contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Central</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: white;
-      text-align: center;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    img {
-      max-width: 200px;
-      margin: 15px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    img:hover {
-      transform: scale(1.05);
-    }
-
-    #popup {
-      display: none;
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: white;
-      padding: 20px;
-      border: 2px solid #333;
-      z-index: 999;
-    }
-
-    #popup img {
-      max-width: 300px;
-    }
-
-    #popup button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #222;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #interdit {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 100px;
-    }
-
-    .photo-large {
+    .logo {
       width: 100%;
-      margin-top: 20px;
+      max-width: 1024px;
+      height: auto;
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        max-width: 80vw;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- LOGO CENTRAL -->
-  <img src="images/Logo.png" alt="Logo central">
-
-  <!-- BOUTON APPELEZ NOUS -->
-  <a href="tel:+33612345678">
-    <img src="images/Appelez nous.png" alt="Appelez-nous">
-  </a>
-
-  <!-- BOUTON ECRIVEZ NOUS -->
-  <a href="mailto:charlie@example.com?subject=Demande%20d'information">
-    <img src="images/Ecrivez nous.png" alt="Écrivez-nous">
-  </a>
-
-  <!-- BOUTON NOUS TROUVEZ -->
-  <a href="https://www.google.com/maps?q=12+rue+des+Lilas,+49400+Saumur" target="_blank">
-    <img src="images/Nous trouvez.png" alt="Nous trouver">
-  </a>
-
-  <!-- BOUTON ENTREZ (ouvre le pop-up) -->
-  <img src="images/Entrez.png" alt="Entrez" onclick="ouvrirPopup()">
-
-  <!-- PHOTOS EXTERIEUR -->
-  <img src="images/Exterieur.jpg" alt="Photo extérieur" class="photo-large">
-
-  <!-- PHOTO INTERIEUR -->
-  <img src="images/Interieur.jpg" alt="Photo intérieur" class="photo-large">
-
-  <!-- LOGO INTERDIT -->
-  <img src="images/Interdit.png" alt="Interdit aux mineurs" id="interdit">
-
-  <!-- POP-UP MAINTENANCE -->
-  <div id="popup">
-    <img src="images/Maintenance.png" alt="Maintenance">
-    <br>
-    <button onclick="fermerPopup()">Fermer</button>
-  </div>
-
-  <!-- SCRIPT POUR LE POP-UP -->
-  <script>
-    function ouvrirPopup() {
-      document.getElementById("popup").style.display = "block";
-    }
-
-    function fermerPopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-  </script>
-
+  <img src="images/Logo.png" alt="Logo central" class="logo">
 </body>
 </html>
