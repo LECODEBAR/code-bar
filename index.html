@@ -2,193 +2,714 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Page d'accueil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Code Bar — Saumur | Bar, Tabac, Presse locale & FDJ</title>
+  <meta name="description" content="Le Code Bar à Saumur : Convivialité, boissons d'exception, espace FDJ, tabac, Le Courrier de l'Ouest et services du quotidien.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
   <style>
-    @font-face {
-      font-family: 'Broadway';
-      src: local('Broadway'), url('https://fonts.cdnfonts.com/s/14421/Broadway.woff') format('woff');
+    :root {
+      --bg-black: #070708;
+      --bg-charcoal: #121214;
+      --bg-glass: rgba(18, 18, 20, 0.85);
+      --grey-mouse: #2a2c30;
+      --grey-light: #a6abb3;
+      --caramel: #c8965d;
+      --caramel-bright: #f0b879;
+      --caramel-glow: rgba(200, 150, 93, 0.35);
+      --neon-amber: rgba(200, 150, 93, 0.15);
+      --font-main: 'Space Grotesk', sans-serif;
+      --font-tech: 'Syncopate', sans-serif;
+      --radius-main: 12px;
+      --transition-cyber: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      height: 100%;
-      overflow: hidden;
+      width: 100%; min-height: 100vh;
+      background-color: var(--bg-black); color: #ffffff;
+      font-family: var(--font-main); overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(200, 150, 93, 0.12) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 35px 35px, 35px 35px;
+      background-attachment: fixed;
     }
 
-    .page-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100vh;
-      padding: 20px;
-      box-sizing: border-box;
+    #app { display: flex; flex-direction: column; min-height: 100vh; }
+    body.age-restricted { overflow: hidden; }
+
+    /* HEADER - MASQUÉ SUR L'ACCUEIL */
+    header {
+      background: var(--bg-glass); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200, 150, 93, 0.2);
+      position: sticky; top: 0; z-index: 100; padding: 12px 24px;
+      transition: var(--transition-cyber);
+    }
+    header.hidden-on-home {
+      display: none !important;
     }
 
-    .fond-ecran-container {
-      position: relative;
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-height: 70vh;
+    .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo-container { cursor: pointer; text-decoration: none; }
+    .logo-img { height: 48px; width: auto; transition: var(--transition-cyber); }
+    .logo-container:hover .logo-img { transform: scale(1.04); }
+
+    /* MENU MOBILE BURGER */
+    .menu-toggle {
+      display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer;
     }
 
-    .fond-ecran {
-      max-height: 100%;
-      max-width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
-      display: block;
+    .nav-menu { display: flex; gap: 6px; list-style: none; align-items: center; }
+    .nav-link {
+      color: var(--grey-light); font-weight: 500; font-size: 13px; letter-spacing: 1px;
+      text-transform: uppercase; padding: 8px 16px; border-radius: var(--radius-main);
+      transition: var(--transition-cyber); border: 1px solid transparent; cursor: pointer; text-decoration: none;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff; background: rgba(200, 150, 93, 0.1);
+      border-color: rgba(200, 150, 93, 0.35); box-shadow: 0 0 15px var(--neon-amber);
     }
 
-    .entrez-btn {
-      position: absolute;
-      bottom: 6px;
-      left: 63%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: auto;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background: none;
+    @media (max-width: 850px) {
+      .menu-toggle { display: block; }
+      .nav-menu {
+        display: none; position: absolute; top: 100%; left: 0; width: 100%;
+        background: var(--bg-charcoal); flex-direction: column; padding: 20px;
+        border-bottom: 1px solid rgba(200, 150, 93, 0.2); gap: 10px;
+      }
+      .nav-menu.mobile-open { display: flex; }
+      .nav-link { width: 100%; text-align: center; }
     }
 
-    .entrez-btn:hover {
-      transform: translateX(-50%) scale(1.05);
-      box-shadow: 0 0 15px #e50914;
+    /* SECTIONS ET MODULES */
+    main { flex: 1; padding: 40px 20px; max-width: 1200px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; justify-content: center; }
+    .module-slot { display: none; width: 100%; }
+    .module-slot.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 10px;
-      flex-wrap: wrap;
+    /* COMPOSANTS UI */
+    .cyber-heading { font-family: var(--font-tech); font-size: 11px; color: var(--caramel); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
+    .cyber-title-main { font-size: 36px; font-weight: 700; margin-bottom: 18px; background: linear-gradient(180deg, #ffffff 0%, var(--grey-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cyber-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; background: linear-gradient(90deg, var(--caramel), var(--caramel-bright)); color: var(--bg-black); border: none; border-radius: 8px; font-family: var(--font-tech); font-size: 11px; font-weight: 700; cursor: pointer; text-decoration: none; transition: var(--transition-cyber); }
+    .cyber-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 18px var(--caramel-glow); }
+    .cyber-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(200, 150, 93, 0.1); color: var(--caramel-bright); border: 1px solid rgba(200, 150, 93, 0.4); font-family: var(--font-tech); font-size: 10px; padding: 5px 12px; border-radius: 20px; margin-bottom: 18px; }
+
+    /* TOASTS */
+    #toast-container { position: fixed; bottom: 25px; right: 25px; z-index: 5000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .toast { pointer-events: auto; min-width: 280px; padding: 14px 20px; border-radius: 10px; background: rgba(18, 18, 20, 0.95); backdrop-filter: blur(12px); border-left: 4px solid var(--caramel); color: #fff; font-size: 13px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+    .toast.success { border-left-color: #55ff99; }
+    .toast.error { border-left-color: #ff5555; }
+    .toast.info { border-left-color: #64d2ff; }
+
+    /* MODALE POP-UP / DIALOGUES STYLISÉS */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background-color: rgba(7, 7, 8, 0.94); backdrop-filter: blur(20px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; visibility: hidden; transition: var(--transition-cyber); padding: 20px;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    #modal-dialog { z-index: 10000; }
+
+    .modal-container {
+      background: linear-gradient(145deg, rgba(22, 22, 26, 0.98), rgba(10, 10, 12, 0.99));
+      border: 1px solid rgba(200, 150, 93, 0.35); border-radius: 18px;
+      max-width: 600px; width: 100%; padding: 35px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.95), 0 0 35px var(--neon-amber);
     }
 
-    .buttons a img {
-      width: 100px;
-      height: auto;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+    /* ANIMATION PÉDAGOGIQUE ENFANTS */
+    .pedago-shield {
+      width: 70px; height: 70px; margin: 0 auto 15px auto;
+      background: rgba(255, 85, 85, 0.1); border: 2px solid #ff5555;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 32px; box-shadow: 0 0 20px rgba(255, 85, 85, 0.3);
+      animation: pulsePedago 2s infinite ease-in-out;
+    }
+    @keyframes pulsePedago {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 85, 85, 0.3); }
+      50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 85, 85, 0.6); }
     }
 
-    .buttons a img:hover {
-      transform: scale(1.05);
+    .pedago-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; text-align: left;
+    }
+    @media (max-width: 600px) { .pedago-cards { grid-template-columns: 1fr; } }
+
+    .pedago-card {
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(200, 150, 93, 0.2);
+      border-radius: 10px; padding: 12px; opacity: 0; transform: translateY(15px);
+      animation: slidePedago 0.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pedago-card:nth-child(1) { animation-delay: 0.1s; }
+    .pedago-card:nth-child(2) { animation-delay: 0.25s; }
+    .pedago-card:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes slidePedago {
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .logo-interdit {
-      width: 50px;
-      margin: 10px auto 0;
-      display: block;
-      cursor: pointer;
+    .pedago-card-icon { font-size: 20px; margin-bottom: 6px; }
+    .pedago-card-title { font-size: 12px; font-weight: 700; color: var(--caramel-bright); margin-bottom: 4px; }
+    .pedago-card-text { font-size: 11px; color: var(--grey-light); line-height: 1.4; }
+
+    /* PAVÉ NUMÉRIQUE CYBER (NUMPAD) */
+    .pin-display-box {
+      width: 100%; max-width: 240px; margin: 15px auto 20px auto;
+      background: #040405; border: 1px solid rgba(200, 150, 93, 0.4);
+      border-radius: 12px; padding: 12px; text-align: center;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+    }
+    .pin-dots {
+      display: flex; justify-content: center; gap: 14px; min-height: 20px; align-items: center;
+    }
+    .pin-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--caramel); transition: var(--transition-cyber);
+    }
+    .pin-dot.filled {
+      background: var(--caramel-bright); box-shadow: 0 0 12px var(--caramel-bright);
     }
 
+    .numpad-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      max-width: 260px; margin: 0 auto;
+    }
+    .numpad-btn {
+      aspect-ratio: 1; background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(200, 150, 93, 0.25); border-radius: 12px;
+      color: #fff; font-family: var(--font-tech); font-size: 18px; font-weight: bold;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: var(--transition-cyber); user-select: none;
+    }
+    .numpad-btn:hover {
+      background: rgba(200, 150, 93, 0.2); border-color: var(--caramel-bright);
+      box-shadow: 0 0 15px var(--neon-amber); transform: scale(1.05);
+    }
+    .numpad-btn:active { transform: scale(0.95); }
+    .numpad-btn.action { font-size: 14px; color: var(--caramel-bright); }
+
+    /* PANNEAU PARAMETRES */
+    .admin-grid { display: grid; grid-template-columns: 220px 1fr; gap: 20px; margin-top: 15px; }
+    @media (max-width: 768px) { .admin-grid { grid-template-columns: 1fr; } }
+    .admin-sidebar { display: flex; flex-direction: column; gap: 6px; }
+    .admin-module-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(200, 150, 93, 0.15); color: var(--grey-light); text-align: left; padding: 12px 16px; border-radius: 8px; font-family: var(--font-main); font-size: 13px; font-weight: 500; cursor: pointer; }
+    .admin-module-btn.active { background: rgba(200, 150, 93, 0.15); border-color: var(--caramel); color: #fff; }
+    .admin-editor-zone { display: flex; flex-direction: column; gap: 12px; }
+    .admin-textarea { width: 100%; height: 300px; background-color: #040405; color: #64d2ff; font-family: 'Consolas', monospace; font-size: 13px; padding: 16px; border: 1px solid rgba(200, 150, 93, 0.2); border-radius: 8px; resize: vertical; outline: none; }
+    .admin-btn-group { display: flex; gap: 10px; justify-content: flex-end; }
+    .admin-save-btn { background: var(--caramel); color: var(--bg-black); padding: 10px 20px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .admin-reset-btn { background: transparent; color: #ff5555; border: 1px solid rgba(255, 85, 85, 0.3); padding: 10px 16px; border-radius: 6px; cursor: pointer; }
+
+    /* ANIMATION NÉON SITE EN COURS / TRAVAUX */
+    .construction-container {
+      text-align: center; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .cyber-loader {
+      width: 100px; height: 100px; position: relative; margin-bottom: 24px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cyber-loader-ring {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid transparent; border-top-color: var(--caramel);
+      animation: spin 1.8s linear infinite;
+    }
+    .cyber-loader-ring:nth-child(2) {
+      inset: 8px; border-top-color: transparent; border-bottom-color: var(--caramel-bright);
+      animation: spin 1.2s linear infinite reverse;
+    }
+    .cyber-loader-center {
+      width: 46px; height: 46px; background: rgba(200, 150, 93, 0.1);
+      border: 1px solid var(--caramel); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 25px var(--caramel-glow); animation: pulse 2s ease-in-out infinite;
+    }
+    .cyber-loader-icon { font-size: 20px; color: var(--caramel-bright); }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.12); opacity: 1; } }
+
+    /* FOOTER OPTIMISÉ ET CONDENSÉ */
     footer {
-      font-size: 12px;
-      color: #ccc;
-      text-align: center;
-      margin-top: 5px;
+      border-top: 1px solid rgba(200, 150, 93, 0.15); padding: 12px 20px;
+      text-align: center; color: var(--grey-light); font-size: 11px; background: var(--bg-charcoal);
+      line-height: 1.4;
     }
-
-    .popup, .popup-interdit {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #111;
-      padding: 20px;
-      border: 2px solid #e50914;
-      border-radius: 10px;
-      z-index: 999;
-      width: 320px;
-      text-align: center;
-      display: none;
+    .footer-content {
+      max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;
     }
+    .footer-legal { font-size: 10px; opacity: 0.75; text-align: left; }
+    .designer-link { color: var(--caramel); text-decoration: none; font-weight: 500; cursor: pointer; transition: var(--transition-cyber); }
+    .designer-link:hover { text-decoration: underline; color: var(--caramel-bright); }
 
-    .popup-image {
-      max-width: 280px;
-      height: auto;
-      margin-bottom: 10px;
-    }
-
-    .popup-text {
-      font-size: 16px;
-      color: #fff;
-    }
-
-    .close-btn {
-      margin-top: 15px;
-      padding: 8px 16px;
-      background-color: #e50914;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .close-btn:hover {
-      background-color: #c40812;
+    @media (max-width: 768px) {
+      .footer-content { flex-direction: column; text-align: center; }
+      .footer-legal { text-align: center; }
     }
   </style>
 </head>
-<body>
+<body class="age-restricted">
 
-  <div class="page-wrapper">
+  <div id="app">
+    <!-- HEADER (MASQUÉ UNIQUEMENT SUR L'ACCUEIL) -->
+    <header id="main-header" class="hidden-on-home">
+      <div class="header-container">
+        <a class="logo-container" onclick="showModule('accueil')">
+          <img src="logoFB.png" alt="Le Code Bar Saumur" class="logo-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x50/121214/c8965d?text=LE+CODE+BAR';">
+        </a>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav>
+          <ul class="nav-menu" id="nav-menu">
+            <li><a class="nav-link active" onclick="showModule('accueil', this)">Accueil</a></li>
+            <li><a class="nav-link" onclick="showModule('carte', this)">Carte</a></li>
+            <li><a class="nav-link" onclick="showModule('boutique', this)">Boutique</a></li>
+            <li><a class="nav-link" onclick="showModule('fdj', this)">FDJ</a></li>
+            <li><a class="nav-link" onclick="showModule('services', this)">Services</a></li>
+            <li><a class="nav-link" onclick="showModule('contact', this)">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-    <div class="fond-ecran-container">
-      <img src="images/Fond ecran.png" alt="Fond d'écran" class="fond-ecran">
-      <img src="images/Entrez.png" alt="Entrez" class="entrez-btn" onclick="showMaintenance()">
-    </div>
+    <main>
+      <div id="module-accueil" class="module-slot active"></div>
+      <div id="module-carte" class="module-slot"></div>
+      <div id="module-boutique" class="module-slot"></div>
+      <div id="module-fdj" class="module-slot"></div>
+      <div id="module-services" class="module-slot"></div>
+      <div id="module-contact" class="module-slot"></div>
+    </main>
 
-    <div class="buttons">
-      <a href="tel:0965240755"><img src="images/Appelez nous.png" alt="Appelez-nous"></a>
-      <a href="mailto:contact@code-bar.fr"><img src="images/Ecrivez nous.png" alt="Écrivez-nous"></a>
-      <a href="https://www.google.com/maps?q=6+rue+de+la+Tonnelle+49400+Saumur" target="_blank">
-        <img src="images/Nous trouvez.png" alt="Nous Trouver">
-      </a>
-    </div>
-
-    <img src="images/Interdit.png" alt="Logo Interdit" class="logo-interdit" onclick="showInterdit()">
-    <footer>⚠️ Ce site est strictement interdit aux mineurs.</footer>
-
+    <!-- FOOTER CONDENSÉ ET STRUCTURÉ -->
+    <footer>
+      <div class="footer-content">
+        <div>© Le Code Bar — Saumur (Bar, Tabac, Presse locale, FDJ)</div>
+        <div class="footer-legal">
+          Alcool : à consommer avec modération. | FDJ / Jeux : Interdit aux mineurs — Jouer comporte des risques (09 74 75 13 13).
+        </div>
+        <div>Conception : <span class="designer-link" onclick="openPinModal()">LilYlan Concept</span></div>
+      </div>
+    </footer>
   </div>
 
-  <!-- Pop-up Maintenance -->
-  <div class="popup" id="popup-maintenance">
-    <img src="images/Maintenance.png" alt="Maintenance" class="popup-image">
-    <div class="popup-text">Site en maintenance. Revenez bientôt !</div>
+  <div id="toast-container"></div>
+
+  <!-- MODALE SÉCURITÉ MAJORITÉ -->
+  <div class="modal-overlay" id="modal-age">
+    <div class="modal-container" style="text-align: center;">
+      <div id="module-age"></div>
+    </div>
   </div>
 
-  <!-- Pop-up Interdit -->
-  <div class="popup-interdit" id="popup-interdit">
-    <div class="popup-text">
-      Ce site est interdit aux mineurs en raison de la nature de nos services : vente d’alcool, tabac, articles réservés aux adultes.
+  <!-- MODALE CODE PIN PAVÉ NUMÉRIQUE DESIGNER (LilYlan Concept) -->
+  <div class="modal-overlay" id="modal-pin">
+    <div class="modal-container" style="max-width: 380px; text-align: center;">
+      <button onclick="closePinModal()" style="position: absolute; top: 18px; right: 20px; background: none; border: none; color: var(--grey-light); font-size: 20px; cursor: pointer;">✕</button>
+      <div class="cyber-badge">SÉCURITÉ CONCEPTEUR</div>
+      <h3 style="font-size: 18px; color: #fff; margin-bottom: 6px;">LilYlan Concept</h3>
+      <p style="color: var(--grey-light); font-size: 12px; margin-bottom: 10px;">Saisissez votre code PIN à 4 chiffres.</p>
+      
+      <div class="pin-display-box">
+        <div class="pin-dots" id="pin-dots-container">
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+        </div>
+      </div>
+
+      <div class="numpad-grid">
+        <button class="numpad-btn" onclick="pressNumpad('1')">1</button>
+        <button class="numpad-btn" onclick="pressNumpad('2')">2</button>
+        <button class="numpad-btn" onclick="pressNumpad('3')">3</button>
+        <button class="numpad-btn" onclick="pressNumpad('4')">4</button>
+        <button class="numpad-btn" onclick="pressNumpad('5')">5</button>
+        <button class="numpad-btn" onclick="pressNumpad('6')">6</button>
+        <button class="numpad-btn" onclick="pressNumpad('7')">7</button>
+        <button class="numpad-btn" onclick="pressNumpad('8')">8</button>
+        <button class="numpad-btn" onclick="pressNumpad('9')">9</button>
+        <button class="numpad-btn action" onclick="clearNumpad()" title="Effacer">⌫</button>
+        <button class="numpad-btn" onclick="pressNumpad('0')">0</button>
+        <button class="numpad-btn action" style="color: #55ff99;" onclick="checkAdminPin()" title="Valider">✓</button>
+      </div>
     </div>
-    <button class="close-btn" onclick="closeInterdit()">Fermer</button>
+  </div>
+
+  <!-- MODALE DIALOGUE STYLISÉE -->
+  <div class="modal-overlay" id="modal-dialog">
+    <div class="modal-container" style="max-width: 450px; text-align: center;">
+      <div class="cyber-badge" id="dialog-badge">CONFIRMATION</div>
+      <h3 id="dialog-title" style="font-size: 18px; color: #fff; margin-bottom: 12px;">Titre</h3>
+      <p id="dialog-message" style="color: var(--grey-light); font-size: 14px; margin-bottom: 24px; line-height: 1.5;"></p>
+      <div style="display: flex; gap: 12px; justify-content: center;" id="dialog-btn-container">
+        <button class="cyber-btn" id="dialog-btn-confirm" style="flex: 1;">VALIDER</button>
+        <button class="cyber-btn" id="dialog-btn-cancel" style="flex: 1; background: transparent; color: var(--grey-light); border: 1px solid var(--grey-mouse);">ANNULER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANNEAU PARAMÈTRES (RÉSERVÉ) -->
+  <div class="modal-overlay" id="modal-admin">
+    <div class="modal-container" style="max-width: 880px;">
+      <button onclick="closeAdmin()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--grey-light); font-size: 18px; cursor: pointer;">✕</button>
+      
+      <div class="cyber-badge">CONSOLE CONCEPTEUR — LILYLAN CONCEPT</div>
+      <h2 style="font-size: 20px; color: #fff; margin-bottom: 6px;">Gestionnaire de Modules HTML</h2>
+      <p style="color: var(--grey-light); font-size: 13px;">Éditez le code des pages directement en direct.</p>
+      
+      <div class="admin-grid">
+        <div class="admin-sidebar">
+          <button class="admin-module-btn active" onclick="selectAdminModule('accueil', this)">🏠 Accueil</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('carte', this)">🍹 Carte & Boissons</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('boutique', this)">🛍️ Boutique</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('fdj', this)">🍀 Espace FDJ</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('services', this)">🛠️ Services</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('contact', this)">📍 Contact & Infos</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('age', this)">🔞 Pop-up Majorité</button>
+          <button style="margin-top:15px; background: rgba(255, 85, 85, 0.1); border: 1px solid #ff5555; color: #ff5555; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer;" onclick="forceResetAgeSecurity()">🔒 Tester le verrouillage d'âge</button>
+        </div>
+
+        <div class="admin-editor-zone">
+          <textarea id="admin-code-input" class="admin-textarea" placeholder="Collez votre code HTML ici..." spellcheck="false"></textarea>
+          
+          <div class="admin-btn-group">
+            <button class="admin-reset-btn" onclick="confirmResetModule()">Réinitialiser la page</button>
+            <button class="admin-save-btn" onclick="saveModule()">⚡ Publier les modifications</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    function showMaintenance() {
-      const popup = document.getElementById('popup-maintenance');
-      popup.style.display = 'block';
-      setTimeout(() => {
-        popup.style.display = 'none';
-      }, 5000);
+    let currentAdminKey = 'accueil';
+    let currentPinInput = "";
+    const SECRET_PIN = "1234";
+
+    // TEMPLATE D'ANIMATION DE CONSTRUCTION D'ACCUEIL (SANS BOUTON DE NAVIGATION)
+    function getHomeConstructionHTML() {
+      return `
+        <div class="construction-container">
+          <div class="cyber-badge">BIENVENUE AU CODE BAR</div>
+          <div class="cyber-loader">
+            <div class="cyber-loader-ring"></div>
+            <div class="cyber-loader-ring"></div>
+            <div class="cyber-loader-center">
+              <span class="cyber-loader-icon">⚙</span>
+            </div>
+          </div>
+          <h1 class="cyber-title-main" style="margin-bottom: 10px;">LE CODE BAR — SAUMUR</h1>
+          <p style="color: var(--grey-light); max-width: 480px; margin: 0 auto; font-size: 14px; line-height: 1.6;">
+            Notre site web est actuellement en cours de développement et sera très bientôt disponible.
+          </p>
+        </div>
+      `;
     }
 
-    function showInterdit() {
-      document.getElementById('popup-interdit').style.display = 'block';
+    function getConstructionHTML(pageTitle) {
+      return `
+        <div class="construction-container">
+          <div class="cyber-badge">SECTION EN COURS DE DÉVELOPPEMENT</div>
+          <div class="cyber-loader">
+            <div class="cyber-loader-ring"></div>
+            <div class="cyber-loader-ring"></div>
+            <div class="cyber-loader-center">
+              <span class="cyber-loader-icon">⚙</span>
+            </div>
+          </div>
+          <h2 class="cyber-title-main" style="margin-bottom: 10px;">${pageTitle.toUpperCase()}</h2>
+          <p style="color: var(--grey-light); max-width: 480px; margin: 0 auto; font-size: 14px; line-height: 1.6;">
+            Cette page sera très prochainement mise en ligne.
+          </p>
+        </div>
+      `;
     }
 
-    function closeInterdit() {
-      document.getElementById('popup-interdit').style.display = 'none';
+    const DEFAULT_MODULES = {
+      age: `<div class="cyber-badge" style="border-color:#ff5555; color:#ff7777;">ACCÈS RÉGLEMENTÉ</div>
+<h2 style="font-size:24px; color:#fff; margin-bottom:12px;">AVEZ-VOUS PLUS DE 18 ANS ?</h2>
+<p style="color: var(--grey-light); margin-bottom: 24px; font-size: 14px; line-height:1.5;">L'accès à ce site est strictement réservé aux personnes majeures, conformément à la réglementation sur la vente d'alcool, de tabac et les jeux de hasard (FDJ).</p>
+<div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+  <button class="cyber-btn" style="flex: 1; min-width: 160px;" onclick="confirmAge()">J'AI 18 ANS OU PLUS</button>
+  <button class="cyber-btn" style="flex: 1; min-width: 160px; background: transparent; color: #ff5555; border: 1px solid #ff5555;" onclick="rejectAge()">MOINS DE 18 ANS</button>
+</div>`,
+
+      accueil: getHomeConstructionHTML(),
+      carte: getConstructionHTML('Carte & Boissons'),
+      boutique: getConstructionHTML('Boutique & Articles'),
+      fdj: getConstructionHTML('Espace FDJ'),
+      services: getConstructionHTML('Nos Services'),
+      contact: getConstructionHTML('Contact & Infos')
+    };
+
+    function toggleMenu() {
+      const menu = document.getElementById('nav-menu');
+      menu.classList.toggle('mobile-open');
     }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function showCustomDialog(title, message, onConfirm, singleBtnText = null) {
+      const dialog = document.getElementById('modal-dialog');
+      document.getElementById('dialog-title').innerText = title;
+      document.getElementById('dialog-message').innerText = message;
+      
+      const btnConfirm = document.getElementById('dialog-btn-confirm');
+      const btnCancel = document.getElementById('dialog-btn-cancel');
+      const closeDialog = () => dialog.classList.remove('active');
+
+      if (singleBtnText) {
+        btnConfirm.innerText = singleBtnText;
+        btnCancel.style.display = 'none';
+        btnConfirm.onclick = () => { closeDialog(); if (onConfirm) onConfirm(); };
+      } else {
+        btnConfirm.innerText = 'VALIDER';
+        btnCancel.style.display = 'inline-flex';
+        btnConfirm.onclick = () => { closeDialog(); if (onConfirm) onConfirm(); };
+        btnCancel.onclick = () => closeDialog();
+      }
+
+      dialog.classList.add('active');
+    }
+
+    function renderModules() {
+      Object.keys(DEFAULT_MODULES).forEach(key => {
+        const code = localStorage.getItem(`mod_${key}`) || DEFAULT_MODULES[key];
+        const slot = document.getElementById(`module-${key}`);
+        if (slot) slot.innerHTML = code;
+      });
+    }
+
+    function showModule(key, navEl) {
+      document.querySelectorAll('.module-slot').forEach(slot => slot.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      
+      const targetSlot = document.getElementById(`module-${key}`);
+      if (targetSlot) targetSlot.classList.add('active');
+      
+      // Gestion de la visibilité du header selon la page
+      const mainHeader = document.getElementById('main-header');
+      if (key === 'accueil') {
+        mainHeader.classList.add('hidden-on-home');
+      } else {
+        mainHeader.classList.remove('hidden-on-home');
+      }
+
+      if (navEl) navEl.classList.add('active');
+      document.getElementById('nav-menu').classList.remove('mobile-open');
+    }
+
+    /* GESTION PAVÉ NUMÉRIQUE PIN (LilYlan Concept) */
+    function openPinModal() {
+      currentPinInput = "";
+      updatePinDisplay();
+      document.getElementById('modal-pin').classList.add('active');
+    }
+
+    function closePinModal() {
+      document.getElementById('modal-pin').classList.remove('active');
+    }
+
+    function pressNumpad(num) {
+      if (currentPinInput.length < 4) {
+        currentPinInput += num;
+        updatePinDisplay();
+        if (currentPinInput.length === 4) {
+          setTimeout(checkAdminPin, 200);
+        }
+      }
+    }
+
+    function clearNumpad() {
+      currentPinInput = currentPinInput.slice(0, -1);
+      updatePinDisplay();
+    }
+
+    function updatePinDisplay() {
+      const dots = document.querySelectorAll('#pin-dots-container .pin-dot');
+      dots.forEach((dot, index) => {
+        if (index < currentPinInput.length) {
+          dot.classList.add('filled');
+        } else {
+          dot.classList.remove('filled');
+        }
+      });
+    }
+
+    function checkAdminPin() {
+      if (currentPinInput === SECRET_PIN) {
+        closePinModal();
+        openAdmin();
+        showToast('Accès administrateur accordé', 'success');
+      } else {
+        showToast('Code PIN incorrect !', 'error');
+        currentPinInput = "";
+        updatePinDisplay();
+      }
+    }
+
+    /* GESTION CLAVIER PHYSIQUE SUR MODALE PIN */
+    window.addEventListener('keydown', (e) => {
+      const pinModalActive = document.getElementById('modal-pin').classList.contains('active');
+      if (pinModalActive) {
+        if (e.key >= '0' && e.key <= '9') {
+          pressNumpad(e.key);
+        } else if (e.key === 'Backspace') {
+          clearNumpad();
+        } else if (e.key === 'Enter') {
+          checkAdminPin();
+        }
+      }
+    });
+
+    /* GESTION POP-UP SÉCURITÉ D'ÂGE */
+    function checkAge() {
+      const isAdultSession = sessionStorage.getItem('is_adult_session');
+      const ageModal = document.getElementById('modal-age');
+      
+      if (isAdultSession === 'true') {
+        document.body.classList.remove('age-restricted');
+        ageModal.classList.remove('active');
+      } else {
+        document.body.classList.add('age-restricted');
+        renderModules();
+        ageModal.classList.add('active');
+      }
+    }
+
+    function confirmAge() {
+      sessionStorage.setItem('is_adult_session', 'true');
+      checkAge();
+      showToast('Accès autorisé. Bienvenue sur Le Code Bar !', 'success');
+    }
+
+    function rejectAge() {
+      const ageSlot = document.getElementById('module-age');
+      
+      ageSlot.innerHTML = `
+        <div class="pedago-shield">🛡️</div>
+        <div class="cyber-badge" style="border-color:#ff5555; color:#ff7777;">ACCÈS RESSERVÉ AUX GRANDS</div>
+        <h2 style="font-size:22px; color:#fff; margin-bottom:8px;">POURQUOI CE SITE EST BLOQUÉ ?</h2>
+        <p style="color: var(--grey-light); font-size: 13px; line-height:1.5;">
+          Ce site présente des produits réservés exclusivement aux adultes. La loi protège la santé des plus jeunes !
+        </p>
+
+        <div class="pedago-cards">
+          <div class="pedago-card">
+            <div class="pedago-card-icon">🔞</div>
+            <div class="pedago-card-title">Règle de la Loi</div>
+            <div class="pedago-card-text">Interdiction légale de vendre de l'alcool, du tabac et des jeux aux personnes de moins de 18 ans.</div>
+          </div>
+          <div class="pedago-card">
+            <div class="pedago-card-icon">🫀</div>
+            <div class="pedago-card-title">Santé & Croissance</div>
+            <div class="pedago-card-text">Ces produits sont toxiques et dangereux pour le corps et le cerveau en pleine croissance.</div>
+          </div>
+          <div class="pedago-card">
+            <div class="pedago-card-icon">🎲</div>
+            <div class="pedago-card-title">Jeux de Hasard</div>
+            <div class="pedago-card-text">Les jeux FDJ comportent des risques d'addiction et de perte d'argent réservés aux majeurs.</div>
+          </div>
+        </div>
+
+        <p style="color: var(--caramel-bright); font-size: 12px; margin-bottom: 20px; font-weight: 500;">
+          Reviens nous voir quand tu auras fêté tes 18 ans ! 🎉
+        </p>
+
+        <button class="cyber-btn" style="width: 100%; background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff;" onclick="redirectToGoogle()">
+          J'AI COMPRIS, QUITTER LE SITE
+        </button>
+      `;
+    }
+
+    function redirectToGoogle() {
+      window.location.href = "https://www.google.fr";
+    }
+
+    function forceResetAgeSecurity() {
+      sessionStorage.removeItem('is_adult_session');
+      localStorage.removeItem('is_adult');
+      closeAdmin();
+      checkAge();
+      showToast('Sécurité d\'âge réactivée !', 'info');
+    }
+
+    /* CONSOLE DE PARAMÈTRES */
+    function openAdmin() {
+      document.getElementById('modal-admin').classList.add('active');
+      loadAdminModuleCode(currentAdminKey);
+    }
+
+    function closeAdmin() { document.getElementById('modal-admin').classList.remove('active'); }
+
+    function selectAdminModule(key, btnEl) {
+      currentAdminKey = key;
+      document.querySelectorAll('.admin-module-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      loadAdminModuleCode(key);
+    }
+
+    function loadAdminModuleCode(key) {
+      const code = localStorage.getItem(`mod_${key}`) || DEFAULT_MODULES[key];
+      document.getElementById('admin-code-input').value = code;
+    }
+
+    function saveModule() {
+      const code = document.getElementById('admin-code-input').value;
+      localStorage.setItem(`mod_${currentAdminKey}`, code);
+      renderModules();
+      showToast(`Module "${currentAdminKey.toUpperCase()}" mis à jour !`, 'success');
+      
+      if (currentAdminKey === 'age') {
+        forceResetAgeSecurity();
+      } else {
+        showModule(currentAdminKey);
+      }
+    }
+
+    function confirmResetModule() {
+      showCustomDialog(
+        'RÉINITIALISATION',
+        `Restaurer le contenu par défaut de la page "${currentAdminKey.toUpperCase()}" ?`,
+        () => {
+          localStorage.removeItem(`mod_${currentAdminKey}`);
+          renderModules();
+          loadAdminModuleCode(currentAdminKey);
+          showToast(`Page "${currentAdminKey.toUpperCase()}" réinitialisée.`, 'info');
+        }
+      );
+    }
+
+    /* INITIALISATION */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderModules();
+      checkAge();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAdmin();
+        closePinModal();
+        document.getElementById('modal-dialog').classList.remove('active');
+      }
+    });
   </script>
-
 </body>
 </html>
