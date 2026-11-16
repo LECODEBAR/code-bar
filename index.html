@@ -1,230 +1,779 @@
-<style>
-  .fdj-promo-wrapper {
-    position: relative;
-    overflow: hidden;
-    padding: 35px 20px;
-    border-radius: 18px;
-    background: radial-gradient(circle at top, rgba(200, 150, 93, 0.14) 0%, rgba(12, 12, 14, 0.9) 75%);
-    border: 1px solid rgba(200, 150, 93, 0.3);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(200, 150, 93, 0.08);
-    text-align: center;
-  }
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Code Bar — Saumur | Féerie de Noël & Calendriers FDJ</title>
+  <meta name="description" content="Le Code Bar à Saumur : Découvrez nos 3 Calendriers de l'Avent FDJ Jours de Chance en édition limitée.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Space+Grotesk:wght@300;400;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
 
-  /* Animation flocons dorés */
-  .snowflakes-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .snowflake {
-    position: absolute;
-    top: -20px;
-    color: var(--caramel-bright);
-    opacity: 0.45;
-    animation: fallSnow linear infinite;
-  }
-  .snowflake:nth-child(1) { left: 10%; font-size: 14px; animation-duration: 7s; animation-delay: 0s; }
-  .snowflake:nth-child(2) { left: 25%; font-size: 20px; animation-duration: 9s; animation-delay: 2s; }
-  .snowflake:nth-child(3) { left: 45%; font-size: 12px; animation-duration: 6s; animation-delay: 1s; }
-  .snowflake:nth-child(4) { left: 65%; font-size: 18px; animation-duration: 8s; animation-delay: 3s; }
-  .snowflake:nth-child(5) { left: 82%; font-size: 15px; animation-duration: 7.5s; animation-delay: 0.5s; }
-  .snowflake:nth-child(6) { left: 92%; font-size: 22px; animation-duration: 10s; animation-delay: 1.5s; }
+  <style>
+    :root {
+      --bg-black: #060608;
+      --bg-charcoal: #101014;
+      --bg-card: rgba(18, 18, 22, 0.88);
+      --bg-glass: rgba(12, 12, 16, 0.9);
+      --grey-mouse: #2a2c30;
+      --grey-light: #b0b5be;
+      --gold: #d4a359;
+      --gold-bright: #fae0a8;
+      --gold-glow: rgba(212, 163, 89, 0.45);
+      --font-main: 'Space Grotesk', sans-serif;
+      --font-tech: 'Syncopate', sans-serif;
+      --font-magic: 'Great Vibes', cursive;
+      --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-  @keyframes fallSnow {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-    20% { opacity: 0.6; }
-    80% { opacity: 0.6; }
-    100% { transform: translateY(520px) rotate(360deg); opacity: 0; }
-  }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* Grille des 3 calendriers */
-  .fdj-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    max-width: 860px;
-    margin: 28px auto;
-    position: relative;
-    z-index: 2;
-  }
-  @media (max-width: 768px) {
-    .fdj-cards-grid { grid-template-columns: 1fr; max-width: 340px; }
-  }
+    html, body {
+      width: 100%; min-height: 100vh;
+      background-color: var(--bg-black); color: #ffffff;
+      font-family: var(--font-main); overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(212, 163, 89, 0.22) 0%, transparent 55%),
+        radial-gradient(circle at 15% 40%, rgba(28, 72, 180, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 60%, rgba(175, 28, 38, 0.12) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+      background-attachment: fixed;
+    }
 
-  .fdj-card {
-    position: relative;
-    border-radius: 14px;
-    padding: 24px 16px;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    animation: cardFloat 4s ease-in-out infinite;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .fdj-card:nth-child(2) { animation-delay: 0.6s; }
-  .fdj-card:nth-child(3) { animation-delay: 1.2s; }
+    #app { display: flex; flex-direction: column; min-height: 100vh; }
+    body.age-restricted { overflow: hidden; }
 
-  @keyframes cardFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-6px); }
-  }
+    /* HEADER */
+    header {
+      background: var(--bg-glass); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(212, 163, 89, 0.25);
+      position: sticky; top: 0; z-index: 100; padding: 14px 24px;
+    }
+    .header-container {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .brand-group { display: flex; align-items: center; gap: 14px; cursor: pointer; text-decoration: none; }
+    .logo-img { height: 46px; width: auto; border-radius: 8px; transition: var(--transition); }
+    .brand-group:hover .logo-img { transform: scale(1.04); }
+    .brand-title { font-family: var(--font-tech); font-size: 14px; color: #fff; letter-spacing: 2px; display: block; }
+    .brand-sub { font-size: 11px; color: var(--gold-bright); letter-spacing: 1px; text-transform: uppercase; }
 
-  .fdj-card:hover {
-    transform: translateY(-10px) scale(1.03) !important;
-  }
+    .menu-toggle {
+      display: none; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,163,89,0.35);
+      color: #fff; font-size: 20px; padding: 6px 12px; border-radius: 8px; cursor: pointer;
+    }
+    .nav-menu { display: flex; gap: 6px; list-style: none; align-items: center; }
+    .nav-link {
+      color: var(--grey-light); font-weight: 500; font-size: 12px; letter-spacing: 1px;
+      text-transform: uppercase; padding: 9px 15px; border-radius: 10px;
+      transition: var(--transition); border: 1px solid transparent; cursor: pointer; text-decoration: none;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff; background: rgba(212, 163, 89, 0.16);
+      border-color: rgba(212, 163, 89, 0.45); box-shadow: 0 0 18px rgba(212, 163, 89, 0.2);
+    }
 
-  /* Thèmes couleurs conformes aux pochettes */
-  .fdj-card.red {
-    background: linear-gradient(145deg, rgba(168, 28, 38, 0.32), rgba(20, 12, 14, 0.95));
-    border: 1px solid rgba(255, 90, 100, 0.45);
-    box-shadow: 0 10px 25px rgba(168, 28, 38, 0.2);
-  }
-  .fdj-card.green {
-    background: linear-gradient(145deg, rgba(20, 110, 68, 0.32), rgba(12, 20, 16, 0.95));
-    border: 1px solid rgba(85, 255, 153, 0.4);
-    box-shadow: 0 10px 25px rgba(20, 110, 68, 0.2);
-  }
-  .fdj-card.blue {
-    background: linear-gradient(145deg, rgba(28, 68, 168, 0.38), rgba(12, 16, 26, 0.95));
-    border: 1px solid rgba(100, 180, 255, 0.55);
-    box-shadow: 0 10px 30px rgba(45, 110, 255, 0.28);
-  }
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; }
+      .nav-menu {
+        display: none; position: absolute; top: 100%; left: 0; width: 100%;
+        background: var(--bg-charcoal); flex-direction: column; padding: 18px;
+        border-bottom: 1px solid rgba(212, 163, 89, 0.3); gap: 8px;
+      }
+      .nav-menu.mobile-open { display: flex; }
+      .nav-link { width: 100%; text-align: center; }
+    }
 
-  .fdj-tag-new {
-    position: absolute;
-    top: -11px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, var(--caramel), var(--caramel-bright));
-    color: var(--bg-black);
-    font-family: var(--font-tech);
-    font-size: 9px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    box-shadow: 0 4px 12px var(--caramel-glow);
-  }
+    /* MAIN */
+    main {
+      flex: 1; padding: 30px 20px 50px 20px; max-width: 1180px; margin: 0 auto; width: 100%;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .module-slot { display: none; width: 100%; }
+    .module-slot.active { display: block; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-  .fdj-card-title {
-    font-family: var(--font-tech);
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    color: #fff;
-    margin: 10px 0 6px 0;
-  }
-  .fdj-price {
-    font-size: 34px;
-    font-weight: 700;
-    color: var(--caramel-bright);
-    margin: 8px 0;
-    text-shadow: 0 0 18px var(--caramel-glow);
-  }
-  .fdj-desc {
-    font-size: 12px;
-    color: var(--grey-light);
-    line-height: 1.4;
-  }
+    /* SCÈNE FÉERIQUE INSPIRÉE DE L'AFFICHE */
+    .fairy-stage {
+      position: relative; overflow: hidden;
+      padding: 46px 24px 34px 24px; border-radius: 26px;
+      background:
+        radial-gradient(ellipse at 50% 18%, rgba(250, 224, 168, 0.16) 0%, transparent 55%),
+        linear-gradient(170deg, #17181f 0%, #09090c 100%);
+      border: 1px solid rgba(212, 163, 89, 0.42);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.9), inset 0 0 60px rgba(212, 163, 89, 0.1);
+      text-align: center;
+    }
 
-  /* Bandeau urgence stock */
-  .stock-alert-bar {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 85, 85, 0.12);
-    border: 1px solid rgba(255, 85, 85, 0.45);
-    color: #ff8888;
-    padding: 8px 18px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    animation: pulseStock 2s infinite;
-    position: relative;
-    z-index: 2;
-  }
-  @keyframes pulseStock {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 85, 85, 0.35); }
-    50% { box-shadow: 0 0 18px 4px rgba(255, 85, 85, 0.2); }
-  }
+    /* Poussière d'étoiles et flocons dorés */
+    .magic-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+    .star-flake {
+      position: absolute; top: -30px; color: var(--gold-bright);
+      text-shadow: 0 0 10px var(--gold); opacity: 0;
+      animation: fairyFall linear infinite;
+    }
+    .star-flake:nth-child(1) { left: 6%; font-size: 16px; animation-duration: 8s; animation-delay: 0s; }
+    .star-flake:nth-child(2) { left: 18%; font-size: 22px; animation-duration: 10s; animation-delay: 1.5s; }
+    .star-flake:nth-child(3) { left: 32%; font-size: 12px; animation-duration: 7s; animation-delay: 0.8s; }
+    .star-flake:nth-child(4) { left: 48%; font-size: 20px; animation-duration: 9s; animation-delay: 2.2s; }
+    .star-flake:nth-child(5) { left: 64%; font-size: 14px; animation-duration: 7.5s; animation-delay: 1s; }
+    .star-flake:nth-child(6) { left: 79%; font-size: 24px; animation-duration: 11s; animation-delay: 0.4s; }
+    .star-flake:nth-child(7) { left: 91%; font-size: 15px; animation-duration: 8.5s; animation-delay: 2.8s; }
+    .star-flake:nth-child(8) { left: 12%; font-size: 10px; animation-duration: 6.5s; animation-delay: 3.5s; }
+    .star-flake:nth-child(9) { left: 85%; font-size: 11px; animation-duration: 7.2s; animation-delay: 1.9s; }
 
-  .construction-footer-note {
-    margin-top: 28px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(200, 150, 93, 0.15);
-    font-size: 12px;
-    color: var(--grey-light);
-    position: relative;
-    z-index: 2;
-  }
-</style>
+    @keyframes fairyFall {
+      0% { transform: translateY(-30px) rotate(0deg) scale(0.8); opacity: 0; }
+      20% { opacity: 0.85; }
+      80% { opacity: 0.85; }
+      100% { transform: translateY(680px) rotate(360deg) scale(1.1); opacity: 0; }
+    }
 
-<div class="fdj-promo-wrapper">
-  <!-- Flocons animés -->
-  <div class="snowflakes-bg">
-    <div class="snowflake">❄</div>
-    <div class="snowflake">✦</div>
-    <div class="snowflake">❄</div>
-    <div class="snowflake">✦</div>
-    <div class="snowflake">❄</div>
-    <div class="snowflake">✦</div>
-  </div>
+    /* Titre inspiré de l'affiche ("3 OFFRES EXCLUSIVES / Cette année") */
+    .fairy-header { position: relative; z-index: 2; margin-bottom: 14px; }
+    .fairy-gold-title {
+      font-family: var(--font-tech);
+      font-size: clamp(20px, 3.6vw, 34px);
+      letter-spacing: 3px;
+      background: linear-gradient(180deg, #fff5d6 0%, #d4a359 55%, #9e712e 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(212, 163, 89, 0.35));
+      display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+    }
+    .fairy-script-sub {
+      font-family: var(--font-magic);
+      font-size: clamp(38px, 6vw, 58px);
+      color: #ffffff;
+      text-shadow: 0 0 22px rgba(250, 224, 168, 0.65), 0 4px 12px rgba(0,0,0,0.8);
+      margin-top: -8px;
+      line-height: 1.1;
+    }
 
-  <div class="cyber-badge" style="position: relative; z-index: 2;">🎄 ÉDITION SPÉCIALE FÊTES — LE CODE BAR SAUMUR</div>
-  <h1 class="cyber-title-main" style="font-size: 32px; margin-bottom: 8px; position: relative; z-index: 2;">
-    CALENDRIERS DE L'AVENT FDJ
-  </h1>
-  <p style="color: var(--grey-light); max-width: 540px; margin: 0 auto 18px auto; font-size: 14px; position: relative; z-index: 2;">
-    Faites patienter la magie de Noël avec nos pochettes <strong style="color:#fff;">Jours de Chance illiko</strong> disponibles dès maintenant au comptoir !
-  </p>
+    /* Grille des 3 Pochettes Jours de Chance */
+    .pochettes-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      max-width: 960px; margin: 34px auto 28px auto; position: relative; z-index: 2;
+    }
+    @media (max-width: 850px) {
+      .pochettes-grid { grid-template-columns: 1fr; max-width: 370px; }
+    }
 
-  <div class="stock-alert-bar">
-    <span>⚠️</span> STOCKS TRÈS LIMITÉS — DISPONIBLE EN BOUTIQUE
-  </div>
+    .pochette-card {
+      position: relative; border-radius: 18px; padding: 28px 20px 24px 20px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: var(--transition);
+      animation: magicHover 5s ease-in-out infinite;
+      overflow: visible;
+    }
+    .pochette-card:nth-child(2) { animation-delay: 0.8s; }
+    .pochette-card:nth-child(3) { animation-delay: 1.6s; }
 
-  <!-- 3 Offres -->
-  <div class="fdj-cards-grid">
-    <!-- Rouge 35€ -->
-    <div class="fdj-card red">
-      <div>
-        <div style="font-size: 26px;">🎁</div>
-        <div class="fdj-card-title">ÉDITION ROUGE</div>
+    @keyframes magicHover {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .pochette-card:hover {
+      transform: translateY(-12px) scale(1.03) !important;
+      z-index: 5;
+    }
+
+    /* Couleurs exactes de votre visuel */
+    .pochette-blue {
+      background: radial-gradient(circle at 50% 30%, rgba(56, 114, 232, 0.55), rgba(14, 24, 58, 0.96));
+      border: 1.5px solid rgba(130, 195, 255, 0.65);
+      box-shadow: 0 15px 38px rgba(30, 85, 210, 0.35), inset 0 0 25px rgba(250, 224, 168, 0.15);
+    }
+    .pochette-green {
+      background: radial-gradient(circle at 50% 30%, rgba(25, 135, 84, 0.52), rgba(10, 32, 22, 0.96));
+      border: 1.5px solid rgba(110, 235, 165, 0.55);
+      box-shadow: 0 15px 38px rgba(18, 115, 70, 0.32), inset 0 0 25px rgba(250, 224, 168, 0.12);
+    }
+    .pochette-red {
+      background: radial-gradient(circle at 50% 30%, rgba(205, 38, 48, 0.55), rgba(42, 10, 14, 0.96));
+      border: 1.5px solid rgba(255, 115, 125, 0.58);
+      box-shadow: 0 15px 38px rgba(185, 28, 38, 0.32), inset 0 0 25px rgba(250, 224, 168, 0.12);
+    }
+
+    /* Couronne dorée "JOURS de CHANCE" comme sur les pochettes */
+    .wreath-emblem {
+      width: 132px; height: 132px; margin: 6px auto 14px auto;
+      border-radius: 50%;
+      border: 2px dashed rgba(250, 224, 168, 0.75);
+      box-shadow: 0 0 25px rgba(212, 163, 89, 0.35), inset 0 0 20px rgba(212, 163, 89, 0.25);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative;
+      background: radial-gradient(circle, rgba(212, 163, 89, 0.16) 0%, transparent 72%);
+    }
+    .wreath-emblem::before {
+      content: '❄ ✦ ❄'; position: absolute; top: -11px;
+      font-size: 11px; color: var(--gold-bright); letter-spacing: 4px;
+    }
+    .wreath-title {
+      font-weight: 700; font-size: 15px; letter-spacing: 1.5px;
+      color: var(--gold-bright); text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      line-height: 1.15;
+    }
+    .wreath-title span {
+      display: block; font-family: var(--font-magic); font-size: 20px;
+      color: #fff; font-weight: 400; margin: -2px 0;
+    }
+    .illiko-pill {
+      margin-top: 6px; background: #ffffff; color: #111;
+      font-size: 10px; font-weight: 700; font-style: italic;
+      padding: 2px 10px; border-radius: 12px;
+    }
+
+    /* Étiquette prix blanche façon tag cadeau comme sur votre image */
+    .gift-tag {
+      background: linear-gradient(180deg, #ffffff 0%, #f4efe6 100%);
+      color: #1a1a1a;
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin: 10px auto 12px auto;
+      width: 82%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+      position: relative;
+      border: 1px solid rgba(212, 163, 89, 0.6);
+    }
+    .gift-tag::before {
+      content: ''; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      width: 7px; height: 7px; border-radius: 50%; background: #2c2c34;
+    }
+    .gift-tag-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      color: #4a453d; text-transform: uppercase;
+    }
+    .gift-tag-price {
+      font-size: 32px; font-weight: 700; color: #b58338; line-height: 1.1;
+    }
+
+    .badge-new-star {
+      position: absolute; top: -13px; right: 16px;
+      background: linear-gradient(90deg, #d4a359, #fae0a8);
+      color: #09090c; font-family: var(--font-tech); font-size: 9px; font-weight: 700;
+      padding: 5px 12px; border-radius: 20px;
+      box-shadow: 0 4px 15px var(--gold-glow);
+    }
+
+    .pochette-desc { font-size: 13px; color: #e4e7ed; line-height: 1.45; }
+
+    /* Bandeau STOCKS LIMITÉS - RÉSERVEZ LE VÔTRE ! */
+    .reserve-banner {
+      position: relative; z-index: 2;
+      margin: 12px auto 20px auto; max-width: 760px;
+      padding: 14px 24px; border-radius: 14px;
+      background: linear-gradient(90deg, rgba(212, 163, 89, 0.14), rgba(250, 224, 168, 0.24), rgba(212, 163, 89, 0.14));
+      border: 1px solid rgba(250, 224, 168, 0.55);
+      box-shadow: 0 0 30px rgba(212, 163, 89, 0.22);
+      animation: glowBanner 2.5s infinite ease-in-out;
+    }
+    @keyframes glowBanner {
+      0%, 100% { box-shadow: 0 0 18px rgba(212, 163, 89, 0.2); }
+      50% { box-shadow: 0 0 34px rgba(250, 224, 168, 0.42); }
+    }
+    .reserve-banner-text {
+      font-family: var(--font-tech); font-size: clamp(12px, 2.2vw, 16px);
+      color: #fff; letter-spacing: 2px;
+    }
+
+    /* Barre discrète site en construction */
+    .wip-bar {
+      margin-top: 26px; padding: 14px 20px; border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 163, 89, 0.22);
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 12px; text-align: left; position: relative; z-index: 2;
+    }
+    .status-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--gold-bright);
+      box-shadow: 0 0 12px var(--gold-bright); display: inline-block; margin-right: 8px;
+      animation: blinkDot 1.6s infinite;
+    }
+    @keyframes blinkDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .cyber-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 22px; background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+      color: #08080a; border: none; border-radius: 10px;
+      font-family: var(--font-tech); font-size: 10px; font-weight: 700;
+      cursor: pointer; text-decoration: none; transition: var(--transition);
+    }
+    .cyber-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px var(--gold-glow); }
+
+    .cyber-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(212, 163, 89, 0.14); color: var(--gold-bright);
+      border: 1px solid rgba(212, 163, 89, 0.45); font-family: var(--font-tech);
+      font-size: 10px; padding: 6px 14px; border-radius: 30px; margin-bottom: 14px;
+    }
+
+    /* PAGES INTERNES */
+    .construction-container {
+      text-align: center; padding: 50px 20px; display: flex; flex-direction: column; align-items: center;
+      background: var(--bg-card); border: 1px solid rgba(212, 163, 89, 0.25); border-radius: 22px;
+    }
+    .cyber-loader { width: 80px; height: 80px; position: relative; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+    .cyber-loader-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid transparent; border-top-color: var(--gold); animation: spin 1.8s linear infinite; }
+    .cyber-loader-ring:nth-child(2) { inset: 8px; border-top-color: transparent; border-bottom-color: var(--gold-bright); animation: spin 1.2s linear infinite reverse; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin-top: 24px; }
+    .info-card { background: var(--bg-card); border: 1px solid rgba(212, 163, 89, 0.25); border-radius: 16px; padding: 24px; }
+    .info-card h3 { font-size: 17px; color: var(--gold-bright); margin: 10px 0 8px 0; }
+    .info-card p { font-size: 13px; color: var(--grey-light); line-height: 1.55; }
+
+    /* TOASTS & MODALES */
+    #toast-container { position: fixed; bottom: 25px; right: 25px; z-index: 5000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .toast { pointer-events: auto; min-width: 280px; padding: 14px 20px; border-radius: 10px; background: rgba(18, 18, 20, 0.96); border-left: 4px solid var(--gold); color: #fff; font-size: 13px; box-shadow: 0 10px 30px rgba(0,0,0,0.65); }
+    .toast.success { border-left-color: #55ff99; }
+    .toast.error { border-left-color: #ff5555; }
+
+    .modal-overlay {
+      position: fixed; inset: 0; background-color: rgba(6, 6, 8, 0.94); backdrop-filter: blur(20px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; visibility: hidden; transition: var(--transition); padding: 20px;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    #modal-dialog { z-index: 10000; }
+    .modal-container {
+      background: linear-gradient(145deg, rgba(22, 22, 26, 0.98), rgba(10, 10, 12, 0.99));
+      border: 1px solid rgba(212, 163, 89, 0.38); border-radius: 18px;
+      max-width: 600px; width: 100%; padding: 32px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.95), 0 0 35px rgba(212, 163, 89, 0.15);
+    }
+
+    /* ÉCRAN MINEURS & NUMPAD */
+    .pedago-shield { width: 68px; height: 68px; margin: 0 auto 14px auto; background: rgba(255, 85, 85, 0.12); border: 2px solid #ff5555; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+    .pedago-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; text-align: left; }
+    @media (max-width: 600px) { .pedago-cards { grid-template-columns: 1fr; } }
+    .pedago-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 163, 89, 0.22); border-radius: 10px; padding: 12px; }
+    .pedago-card-title { font-size: 12px; font-weight: 700; color: var(--gold-bright); margin: 4px 0; }
+    .pedago-card-text { font-size: 11px; color: var(--grey-light); line-height: 1.4; }
+
+    .pin-display-box { width: 100%; max-width: 240px; margin: 15px auto 20px auto; background: #040405; border: 1px solid rgba(212, 163, 89, 0.4); border-radius: 12px; padding: 12px; }
+    .pin-dots { display: flex; justify-content: center; gap: 14px; min-height: 20px; align-items: center; }
+    .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--gold); transition: var(--transition); }
+    .pin-dot.filled { background: var(--gold-bright); box-shadow: 0 0 12px var(--gold-bright); }
+    .numpad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 260px; margin: 0 auto; }
+    .numpad-btn { aspect-ratio: 1; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(212, 163, 89, 0.25); border-radius: 12px; color: #fff; font-family: var(--font-tech); font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .numpad-btn:hover { background: rgba(212, 163, 89, 0.2); border-color: var(--gold-bright); }
+
+    /* ADMIN */
+    .admin-grid { display: grid; grid-template-columns: 210px 1fr; gap: 18px; margin-top: 15px; }
+    @media (max-width: 768px) { .admin-grid { grid-template-columns: 1fr; } }
+    .admin-sidebar { display: flex; flex-direction: column; gap: 6px; }
+    .admin-module-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 163, 89, 0.15); color: var(--grey-light); text-align: left; padding: 11px 14px; border-radius: 8px; font-size: 13px; cursor: pointer; }
+    .admin-module-btn.active { background: rgba(212, 163, 89, 0.18); border-color: var(--gold); color: #fff; }
+    .admin-textarea { width: 100%; height: 290px; background-color: #040405; color: #64d2ff; font-family: 'Consolas', monospace; font-size: 12px; padding: 14px; border: 1px solid rgba(212, 163, 89, 0.25); border-radius: 8px; resize: vertical; outline: none; }
+    .admin-btn-group { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
+    .admin-save-btn { background: var(--gold); color: #08080a; padding: 10px 18px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .admin-reset-btn { background: transparent; color: #ff5555; border: 1px solid rgba(255, 85, 85, 0.35); padding: 10px 14px; border-radius: 8px; cursor: pointer; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid rgba(212, 163, 89, 0.2); padding: 14px 20px; color: var(--grey-light); font-size: 11px; background: var(--bg-charcoal); }
+    .footer-content { max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .footer-legal { font-size: 10px; opacity: 0.85; }
+    .designer-link { color: var(--gold); font-weight: 600; cursor: pointer; }
+    .designer-link:hover { text-decoration: underline; color: var(--gold-bright); }
+    @media (max-width: 768px) { .footer-content { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body class="age-restricted">
+
+  <div id="app">
+    <header id="main-header">
+      <div class="header-container">
+        <a class="brand-group" onclick="showModule('accueil', document.querySelector('.nav-link'))">
+          <img src="logoFB.png" alt="Le Code Bar Saumur" class="logo-img" onerror="this.style.display='none'">
+          <div>
+            <span class="brand-title">LE CODE BAR</span>
+            <span class="brand-sub">Saumur • Bar • Tabac • FDJ</span>
+          </div>
+        </a>
+
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav>
+          <ul class="nav-menu" id="nav-menu">
+            <li><a class="nav-link active" onclick="showModule('accueil', this)">🎄 Féerie FDJ</a></li>
+            <li><a class="nav-link" onclick="showModule('carte', this)">Carte</a></li>
+            <li><a class="nav-link" onclick="showModule('boutique', this)">Boutique</a></li>
+            <li><a class="nav-link" onclick="showModule('fdj', this)">Espace FDJ</a></li>
+            <li><a class="nav-link" onclick="showModule('services', this)">Services</a></li>
+            <li><a class="nav-link" onclick="showModule('contact', this)">Contact</a></li>
+          </ul>
+        </nav>
       </div>
-      <div class="fdj-price">35 €</div>
-      <div class="fdj-desc">Le plaisir de gratter chaque jour jusqu'à Noël à prix doux.</div>
-    </div>
+    </header>
 
-    <!-- Vert 45€ -->
-    <div class="fdj-card green">
-      <div>
-        <div style="font-size: 26px;">🎄</div>
-        <div class="fdj-card-title">ÉDITION VERTE</div>
-      </div>
-      <div class="fdj-price">45 €</div>
-      <div class="fdj-desc">L'incontournable des fêtes pour multiplier les instants chance.</div>
-    </div>
+    <main>
+      <div id="module-accueil" class="module-slot active"></div>
+      <div id="module-carte" class="module-slot"></div>
+      <div id="module-boutique" class="module-slot"></div>
+      <div id="module-fdj" class="module-slot"></div>
+      <div id="module-services" class="module-slot"></div>
+      <div id="module-contact" class="module-slot"></div>
+    </main>
 
-    <!-- Bleu 50€ -->
-    <div class="fdj-card blue">
-      <div class="fdj-tag-new">✨ NOUVEAUTÉ</div>
-      <div>
-        <div style="font-size: 26px;">❄️</div>
-        <div class="fdj-card-title">ÉDITION BLEUE</div>
+    <footer>
+      <div class="footer-content">
+        <div>© Le Code Bar — Saumur (Bar, Tabac, Presse locale, FDJ)</div>
+        <div class="footer-legal">
+          Alcool : à consommer avec modération. | Jeux FDJ : Interdit aux mineurs (-18) — Jouer comporte des risques (09 74 75 13 13).
+        </div>
+        <div>Conception : <span class="designer-link" onclick="openPinModal()">LilYlan Concept</span></div>
       </div>
-      <div class="fdj-price">50 €</div>
-      <div class="fdj-desc">Le tout dernier sorti cette année pour encore plus de surprises !</div>
+    </footer>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- MODALE MAJORITÉ -->
+  <div class="modal-overlay" id="modal-age">
+    <div class="modal-container" style="text-align: center;">
+      <div id="module-age"></div>
     </div>
   </div>
 
-  <p style="font-size: 10px; color: var(--grey-light); opacity: 0.7; max-width: 620px; margin: 0 auto; position: relative; z-index: 2;">
-    Les jeux d'argent et de hasard sont interdits aux mineurs. Jouer comporte des risques : endettement, isolement, dépendance. Pour être aidé, appelez le 09 74 75 13 13 (appel non surtaxé).
-  </p>
-
-  <!-- Mention site en construction -->
-  <div class="construction-footer-note">
-    ⚙️ <strong style="color: var(--caramel-bright);">Le Code Bar — Saumur :</strong> Notre site complet est actuellement en cours de finalisation, mais toute l'équipe vous accueille dès aujourd'hui en boutique !
+  <!-- MODALE PIN -->
+  <div class="modal-overlay" id="modal-pin">
+    <div class="modal-container" style="max-width: 370px; text-align: center;">
+      <button onclick="closePinModal()" style="position: absolute; top: 18px; right: 20px; background: none; border: none; color: var(--grey-light); font-size: 20px; cursor: pointer;">✕</button>
+      <div class="cyber-badge">SÉCURITÉ CONCEPTEUR</div>
+      <h3 style="font-size: 18px; color: #fff; margin-bottom: 6px;">LilYlan Concept</h3>
+      <p style="color: var(--grey-light); font-size: 12px;">Saisissez votre code PIN à 4 chiffres.</p>
+      <div class="pin-display-box">
+        <div class="pin-dots" id="pin-dots-container">
+          <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+        </div>
+      </div>
+      <div class="numpad-grid">
+        <button class="numpad-btn" onclick="pressNumpad('1')">1</button>
+        <button class="numpad-btn" onclick="pressNumpad('2')">2</button>
+        <button class="numpad-btn" onclick="pressNumpad('3')">3</button>
+        <button class="numpad-btn" onclick="pressNumpad('4')">4</button>
+        <button class="numpad-btn" onclick="pressNumpad('5')">5</button>
+        <button class="numpad-btn" onclick="pressNumpad('6')">6</button>
+        <button class="numpad-btn" onclick="pressNumpad('7')">7</button>
+        <button class="numpad-btn" onclick="pressNumpad('8')">8</button>
+        <button class="numpad-btn" onclick="pressNumpad('9')">9</button>
+        <button class="numpad-btn" style="font-size:14px;color:var(--gold-bright);" onclick="clearNumpad()">⌫</button>
+        <button class="numpad-btn" onclick="pressNumpad('0')">0</button>
+        <button class="numpad-btn" style="font-size:14px;color:#55ff99;" onclick="checkAdminPin()">✓</button>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- MODALE DIALOGUE -->
+  <div class="modal-overlay" id="modal-dialog">
+    <div class="modal-container" style="max-width: 440px; text-align: center;">
+      <div class="cyber-badge">CONFIRMATION</div>
+      <h3 id="dialog-title" style="font-size: 18px; color: #fff; margin-bottom: 12px;">Titre</h3>
+      <p id="dialog-message" style="color: var(--grey-light); font-size: 14px; margin-bottom: 24px; line-height: 1.5;"></p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button class="cyber-btn" id="dialog-btn-confirm" style="flex: 1;">VALIDER</button>
+        <button class="cyber-btn" id="dialog-btn-cancel" style="flex: 1; background: transparent; color: var(--grey-light); border: 1px solid var(--grey-mouse);">ANNULER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSOLE ADMIN -->
+  <div class="modal-overlay" id="modal-admin">
+    <div class="modal-container" style="max-width: 880px;">
+      <button onclick="closeAdmin()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--grey-light); font-size: 18px; cursor: pointer;">✕</button>
+      <div class="cyber-badge">CONSOLE CONCEPTEUR — LILYLAN CONCEPT</div>
+      <h2 style="font-size: 20px; color: #fff; margin-bottom: 6px;">Gestionnaire de Modules HTML</h2>
+      <div class="admin-grid">
+        <div class="admin-sidebar">
+          <button class="admin-module-btn active" onclick="selectAdminModule('accueil', this)">🎄 Accueil (Féerie FDJ)</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('carte', this)">🍹 Carte & Boissons</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('boutique', this)">🛍️ Boutique</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('fdj', this)">🍀 Espace FDJ</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('services', this)">🛠️ Services</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('contact', this)">📍 Contact & Infos</button>
+          <button class="admin-module-btn" onclick="selectAdminModule('age', this)">🔞 Pop-up Majorité</button>
+          <button style="margin-top:12px; background: rgba(255, 85, 85, 0.12); border: 1px solid #ff5555; color: #ff5555; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;" onclick="forceResetAgeSecurity()">🔒 Tester verrouillage âge</button>
+        </div>
+        <div>
+          <textarea id="admin-code-input" class="admin-textarea" spellcheck="false"></textarea>
+          <div class="admin-btn-group">
+            <button class="admin-reset-btn" onclick="confirmResetModule()">Réinitialiser la page</button>
+            <button class="admin-save-btn" onclick="saveModule()">⚡ Publier les modifications</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentAdminKey = 'accueil';
+    let currentPinInput = "";
+    const SECRET_PIN = "1234";
+
+    function getFairyAdventHTML() {
+      return `
+        <section class="fairy-stage">
+          <!-- Pluie d'étoiles et flocons dorés -->
+          <div class="magic-particles">
+            <div class="star-flake">❄</div>
+            <div class="star-flake">✨</div>
+            <div class="star-flake">✦</div>
+            <div class="star-flake">❄</div>
+            <div class="star-flake">✨</div>
+            <div class="star-flake">❄</div>
+            <div class="star-flake">✦</div>
+            <div class="star-flake">❄</div>
+            <div class="star-flake">✨</div>
+          </div>
+
+          <div class="fairy-header">
+            <div class="fairy-gold-title">
+              <span>🎄</span> 3 OFFRES EXCLUSIVES <span>🎄</span>
+            </div>
+            <div class="fairy-script-sub">Cette année au Code Bar</div>
+            <p style="color: var(--grey-light); max-width: 560px; margin: 12px auto 0 auto; font-size: 14px; line-height: 1.5;">
+              Plongez dans la féerie des fêtes à Saumur avec les calendriers de l'Avent <strong style="color:#fff;">Jours de Chance illiko FDJ</strong>. Offrez ou offrez-vous un instant magique chaque jour !
+            </p>
+          </div>
+
+          <!-- Les 3 Offres dans l'ordre exact de votre visuel -->
+          <div class="pochettes-grid">
+            <!-- OFFRE 1 : BLEU 50€ -->
+            <div class="pochette-card pochette-blue">
+              <div class="badge-new-star">✨ NOUVEAUTÉ</div>
+              <div>
+                <div class="wreath-emblem">
+                  <div class="wreath-title">JOURS<span>de</span>CHANCE</div>
+                  <div class="illiko-pill">illiko</div>
+                </div>
+                <div class="gift-tag">
+                  <div class="gift-tag-label">OFFRE 1 • ÉDITION BLEUE</div>
+                  <div class="gift-tag-price">50 €</div>
+                </div>
+              </div>
+              <div class="pochette-desc">Le tout dernier sorti cette année : une pochette prestige étoilée pour un maximum de surprises.</div>
+            </div>
+
+            <!-- OFFRE 2 : VERT 45€ -->
+            <div class="pochette-card pochette-green">
+              <div>
+                <div class="wreath-emblem">
+                  <div class="wreath-title">JOURS<span>de</span>CHANCE</div>
+                  <div class="illiko-pill">illiko</div>
+                </div>
+                <div class="gift-tag">
+                  <div class="gift-tag-label">OFFRE 2 • ÉDITION VERTE</div>
+                  <div class="gift-tag-price">45 €</div>
+                </div>
+              </div>
+              <div class="pochette-desc">La magie traditionnelle de Noël pour patienter jusqu'au réveillon avec une dose quotidienne de chance.</div>
+            </div>
+
+            <!-- OFFRE 3 : ROUGE 35€ -->
+            <div class="pochette-card pochette-red">
+              <div>
+                <div class="wreath-emblem">
+                  <div class="wreath-title">JOURS<span>de</span>CHANCE</div>
+                  <div class="illiko-pill">illiko</div>
+                </div>
+                <div class="gift-tag">
+                  <div class="gift-tag-label">OFFRE 3 • ÉDITION ROUGE</div>
+                  <div class="gift-tag-price">35 €</div>
+                </div>
+              </div>
+              <div class="pochette-desc">Le plaisir de gratter chaque jour à prix doux — idéal à glisser au pied du sapin !</div>
+            </div>
+          </div>
+
+          <!-- Bandeau urgence inspiré du bas de l'affiche -->
+          <div class="reserve-banner">
+            <div class="reserve-banner-text">✨ STOCKS LIMITÉS — RÉSERVEZ LE VÔTRE EN BOUTIQUE ! ✨</div>
+          </div>
+
+          <p style="font-size: 10px; color: var(--grey-light); opacity: 0.75; max-width: 640px; margin: 0 auto; position: relative; z-index: 2;">
+            Interdit aux moins de 18 ans (-18). Les jeux d'argent et de hasard peuvent être dangereux : pertes d'argent, conflits familiaux, addiction... Retrouvez nos conseils sur joueurs-info-service.fr (09 74 75 13 13 - appel non surtaxé).
+          </p>
+
+          <!-- Mention discrète site en construction -->
+          <div class="wip-bar">
+            <div style="font-size: 13px; color: #fff;">
+              <span class="status-dot"></span>
+              <strong>Site web en cours de création</strong> — Toute notre équipe vous accueille au comptoir à Saumur.
+            </div>
+            <button class="cyber-btn" onclick="showModule('contact', document.querySelectorAll('.nav-link')[5])">
+              INFOS & ACCÈS →
+            </button>
+          </div>
+        </section>
+      `;
+    }
+
+    function getConstructionHTML(pageTitle, subtitle) {
+      return `
+        <div class="construction-container">
+          <div class="cyber-badge">SECTION EN COURS DE PRÉPARATION</div>
+          <div class="cyber-loader">
+            <div class="cyber-loader-ring"></div>
+            <div class="cyber-loader-ring"></div>
+            <span style="color:var(--gold-bright);font-size:18px;">✨</span>
+          </div>
+          <h2 style="font-size: 28px; margin-bottom: 10px;">${pageTitle.toUpperCase()}</h2>
+          <p style="color: var(--grey-light); max-width: 500px; margin: 0 auto 24px auto; font-size: 14px; line-height: 1.6;">${subtitle}</p>
+          <button class="cyber-btn" onclick="showModule('accueil', document.querySelector('.nav-link'))">
+            🎄 RETOUR AUX CALENDRIERS FDJ
+          </button>
+        </div>
+      `;
+    }
+
+    function getContactHTML() {
+      return `
+        <div class="fairy-stage" style="text-align: left;">
+          <div style="text-align: center;">
+            <div class="cyber-badge">📍 SAUMUR • PAYS DE LA LOIRE</div>
+            <div class="fairy-gold-title">LE CODE BAR</div>
+            <div class="fairy-script-sub" style="font-size: 40px;">Votre commerce de proximité</div>
+          </div>
+          <div class="info-grid">
+            <div class="info-card">
+              <div style="font-size:28px;">☕</div>
+              <h3>Bar & Convivialité</h3>
+              <p>Pause café, boissons fraîches et accueil chaleureux toute l'année à Saumur.</p>
+            </div>
+            <div class="info-card">
+              <div style="font-size:28px;">🍀</div>
+              <h3>Point de vente FDJ</h3>
+              <p>Calendriers de l'Avent Jours de Chance, jeux illiko, Loto, EuroMillions et Parions Sport.</p>
+            </div>
+            <div class="info-card">
+              <div style="font-size:28px;">📰</div>
+              <h3>Tabac & Presse Locale</h3>
+              <p>Tabac, accessoires fumeurs, Le Courrier de l'Ouest et services du quotidien.</p>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 28px;">
+            <button class="cyber-btn" onclick="showModule('accueil', document.querySelector('.nav-link'))">
+              🎄 DÉCOUVRIR LES 3 OFFRES CALENDRIERS FDJ
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    const DEFAULT_MODULES = {
+      age: `<div class="cyber-badge" style="border-color:#ff5555; color:#ff7777;">ACCÈS RÉGLEMENTÉ</div>
+<h2 style="font-size:24px; color:#fff; margin-bottom:12px;">AVEZ-VOUS PLUS DE 18 ANS ?</h2>
+<p style="color: var(--grey-light); margin-bottom: 24px; font-size: 14px; line-height:1.5;">L'accès à ce site est strictement réservé aux personnes majeures, conformément à la réglementation sur la vente d'alcool, de tabac et les jeux de hasard (FDJ).</p>
+<div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+  <button class="cyber-btn" style="flex: 1; min-width: 160px;" onclick="confirmAge()">J'AI 18 ANS OU PLUS</button>
+  <button class="cyber-btn" style="flex: 1; min-width: 160px; background: transparent; color: #ff5555; border: 1px solid #ff5555;" onclick="rejectAge()">MOINS DE 18 ANS</button>
+</div>`,
+      accueil: getFairyAdventHTML(),
+      carte: getConstructionHTML('Carte & Boissons', 'Notre carte complète des boissons sera bientôt disponible en ligne.'),
+      boutique: getConstructionHTML('Boutique & Tabac', 'Présentation de nos articles fumeurs et accessoires prochainement en ligne.'),
+      fdj: getFairyAdventHTML(),
+      services: getConstructionHTML('Nos Services', 'Presse locale (Le Courrier de l\'Ouest) et services de proximité bientôt détaillés.'),
+      contact: getContactHTML()
+    };
+
+    function toggleMenu() { document.getElementById('nav-menu').classList.toggle('mobile-open'); }
+    function showToast(msg, type = 'info') {
+      const t = document.createElement('div');
+      t.className = `toast ${type}`;
+      t.innerText = msg;
+      document.getElementById('toast-container').appendChild(t);
+      setTimeout(() => t.remove(), 3000);
+    }
+
+    function showCustomDialog(title, message, onConfirm) {
+      const dialog = document.getElementById('modal-dialog');
+      document.getElementById('dialog-title').innerText = title;
+      document.getElementById('dialog-message').innerText = message;
+      document.getElementById('dialog-btn-confirm').onclick = () => { dialog.classList.remove('active'); if (onConfirm) onConfirm(); };
+      document.getElementById('dialog-btn-cancel').onclick = () => dialog.classList.remove('active');
+      dialog.classList.add('active');
+    }
+
+    function renderModules() {
+      Object.keys(DEFAULT_MODULES).forEach(key => {
+        const slot = document.getElementById(`module-${key}`);
+        if (slot) slot.innerHTML = localStorage.getItem(`mod_${key}`) || DEFAULT_MODULES[key];
+      });
+    }
+
+    function showModule(key, navEl) {
+      document.querySelectorAll('.module-slot').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      const target = document.getElementById(`module-${key}`);
+      if (target) target.classList.add('active');
+      if (navEl) navEl.classList.add('active');
+      document.getElementById('nav-menu').classList.remove('mobile-open');
+    }
+
+    function openPinModal() { currentPinInput = ""; updatePinDisplay(); document.getElementById('modal-pin').classList.add('active'); }
+    function closePinModal() { document.getElementById('modal-pin').classList.remove('active'); }
+    function pressNumpad(n) {
+      if (currentPinInput.length < 4) {
+        currentPinInput += n; updatePinDisplay();
+        if (currentPinInput.length === 4) setTimeout(checkAdminPin, 200);
+      }
+    }
+    function clearNumpad() { currentPinInput = currentPinInput.slice(0, -1); updatePinDisplay(); }
+    function updatePinDisplay() {
+      document.querySelectorAll('#pin-dots-container .pin-dot').forEach((d, i) => d.classList.toggle('filled', i < currentPinInput.length));
+    }
+    function checkAdminPin() {
+      if (currentPinInput === SECRET_PIN) { closePinModal(); openAdmin(); showToast('Accès administrateur accordé', 'success'); }
+      else { showToast('Code PIN incorrect !', 'error'); currentPinInput = ""; updatePinDisplay(); }
+    }
+
+    function checkAge() {
+      const ageModal = document.getElementById('modal-age');
+      if (sessionStorage.getItem('is_adult_session') === 'true') {
+        document.body.classList.remove('age-restricted');
+        ageModal.classList.remove('active');
+      } else {
+        document.body.classList.add('age-restricted');
+        renderModules();
+        ageModal.classList.add('active');
+      }
+    }
+    function confirmAge() { sessionStorage.setItem('is_adult_session', 'true'); checkAge(); showToast('Bienvenue au Code Bar — Saumur !', 'success'); }
+    function rejectAge() {
+      document.getElementById('module-age').innerHTML = `
+        <div class="pedago-shield">🛡️</div>
+        <div class="cyber-badge" style="border-color:#ff5555; color:#ff7777;">ACCÈS RÉSERVÉ AUX MAJEURS</div>
+        <h2 style="font-size:22px; color:#fff; margin-bottom:8px;">POURQUOI CE SITE EST BLOQUÉ ?</h2>
+        <p style="color: var(--grey-light); font-size: 13px;">Ce site présente des produits réservés exclusivement aux adultes.</p>
+        <div class="pedago-cards">
+          <div class="pedago-card"><div style="font-size:20px;">🔞</div><div class="pedago-card-title">Règle de la Loi</div><div class="pedago-card-text">Vente interdite aux moins de 18 ans.</div></div>
+          <div class="pedago-card"><div style="font-size:20px;">🫀</div><div class="pedago-card-title">Santé</div><div class="pedago-card-text">Produits dangereux pour la santé des jeunes.</div></div>
+          <div class="pedago-card"><div style="font-size:20px;">🎲</div><div class="pedago-card-title">Jeux FDJ</div><div class="pedago-card-text">Jeux d'argent strictement réservés aux adultes.</div></div>
+        </div>
+        <button class="cyber-btn" style="width:100%; background:#ff5555; color:#fff;" onclick="window.location.href='https://www.google.fr'">QUITTER LE SITE</button>
+      `;
+    }
+    function forceResetAgeSecurity() { sessionStorage.removeItem('is_adult_session'); closeAdmin(); checkAge(); }
+
+    function openAdmin() { document.getElementById('modal-admin').classList.add('active'); loadAdminModuleCode(currentAdminKey); }
+    function closeAdmin() { document.getElementById('modal-admin').classList.remove('active'); }
+    function selectAdminModule(key, btn) {
+      currentAdminKey = key;
+      document.querySelectorAll('.admin-module-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      loadAdminModuleCode(key);
+    }
+    function loadAdminModuleCode(key) { document.getElementById('admin-code-input').value = localStorage.getItem(`mod_${key}`) || DEFAULT_MODULES[key]; }
+    function saveModule() { localStorage.setItem(`mod_${currentAdminKey}`, document.getElementById('admin-code-input').value); renderModules(); showToast('Modifications publiées !', 'success'); }
+    function confirmResetModule() {
+      showCustomDialog('RÉINITIALISER LA PAGE', 'Restaurer la version par défaut ?', () => {
+        localStorage.removeItem(`mod_${currentAdminKey}`); loadAdminModuleCode(currentAdminKey); renderModules(); showToast('Page réinitialisée', 'info');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => { renderModules(); checkAge(); });
+  </script>
+</body>
+</html>
